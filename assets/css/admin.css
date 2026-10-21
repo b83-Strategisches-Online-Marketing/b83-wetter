@@ -1,0 +1,85 @@
+/* b83 Wetter – Backend */
+
+.b83-wetter-admin .nav-tab-wrapper { margin-bottom: 20px; }
+.b83-wetter-admin__foot { margin-top: 32px; color: #646970; }
+
+.b83-wetter-card { background: #fff; border: 1px solid #dcdcde; border-radius: 8px; padding: 18px 20px; margin: 0 0 20px; }
+.b83-wetter-card > h2:first-child { margin-top: 0; }
+.b83-wetter-form { max-width: 900px; }
+.b83-wetter-label { display: block; font-weight: 600; margin: 0 0 4px; }
+.b83-wetter-check { display: inline-flex; align-items: center; gap: 6px; }
+.b83-wetter-field .description { margin-top: 4px; }
+
+.b83-wetter-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 18px; }
+.b83-wetter-grid > * { margin: 8px 0; }
+.b83-wetter-col-2 { grid-column: 1 / -1; }
+.b83-wetter-grid select,
+.b83-wetter-grid input[type=text] { max-width: 100%; box-sizing: border-box; }
+@media (max-width: 782px) { .b83-wetter-grid { grid-template-columns: 1fr; } }
+
+/* Ortssuche */
+.b83-wetter-geocode { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 10px 0 6px; }
+.b83-wetter-geocode__msg.is-ok { color: #008a20; }
+.b83-wetter-geocode__msg.is-error { color: #b32d2e; }
+
+/* Gruppen */
+.b83-wetter-group { border-top: 1px solid #f0f0f1; }
+.b83-wetter-group:first-of-type { border-top: 0; }
+.b83-wetter-group > summary { cursor: pointer; padding: 12px 0; font-weight: 600; font-size: 14px; list-style: none; display: flex; align-items: center; gap: 8px; }
+.b83-wetter-group > summary::-webkit-details-marker { display: none; }
+.b83-wetter-group > summary::before { content: "\f345"; font-family: dashicons; color: #787c82; transition: transform .15s; }
+.b83-wetter-group[open] > summary::before { transform: rotate(90deg); }
+.b83-wetter-group > .b83-wetter-grid { padding: 0 0 14px 22px; }
+.b83-wetter-admin .wp-picker-container input.wp-color-picker[type="text"] { width: 80px; }
+
+/* Editor-Layout mit Vorschau */
+.b83-wetter-editor { display: grid; grid-template-columns: minmax(0, 1fr) minmax(360px, 520px); gap: 20px; align-items: start; }
+.b83-wetter-sticky { position: sticky; top: 46px; }
+@media (max-width: 1200px) {
+	.b83-wetter-editor { grid-template-columns: 1fr; }
+	.b83-wetter-sticky { position: static; }
+	.b83-wetter-editor__side { order: -1; }
+}
+
+.b83-wetter-preview__bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.b83-wetter-preview__bar h2 { margin: 0; }
+.b83-wetter-preview__bg { display: inline-flex; gap: 4px; }
+.b83-wetter-preview__bg .button.is-active { background: #2271b1; border-color: #2271b1; color: #fff; }
+.b83-wetter-preview__stage {
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+	padding: 16px;
+	border-radius: 8px;
+	background: #f6f7f7;
+	color: #1d2327;
+	max-height: calc(100vh - 160px);
+	overflow: auto;
+	transition: opacity .15s;
+}
+.b83-wetter-preview__stage[data-bg="dark"] { background: #1e2a36; color: #f0f3f6; }
+.b83-wetter-preview__stage.is-loading { opacity: .55; }
+.b83-wetter-preview__label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; opacity: .6; margin-bottom: 6px; }
+.b83-wetter-preview__nav { display: flex; align-items: center; gap: 18px; padding: 10px 14px; border-radius: 6px; background: rgba(127, 127, 127, .12); font-size: 14px; }
+.b83-wetter-preview__nav > span { opacity: .8; }
+.b83-wetter-preview__nav > .b83-wetter { margin-left: auto; }
+.b83-wetter-preview__item--kompakt .b83-wetter { max-width: 320px; }
+.b83-wetter-preview__demo { margin: 0; padding: 6px 10px; border-radius: 4px; background: #fcf9e8; color: #6b5300; font-size: 12px; }
+
+/* Status */
+.b83-wetter-status th { width: 240px; font-weight: 600; }
+.b83-wetter-status + .notice, .b83-wetter-status ~ form { margin-top: 14px; }
+.b83-wetter-status__cond { display: flex; align-items: center; gap: 8px; }
+.b83-wetter-status__cond .b83w-icon { width: 28px; height: 28px; }
+
+/* Hilfe */
+.b83-wetter-help { max-width: 1100px; }
+.b83-wetter-help h2 { margin-top: 28px; }
+.b83-wetter-help h2:first-child { margin-top: 0; }
+.b83-wetter-help .widefat { margin-top: 8px; }
+.b83-wetter-help__code { white-space: nowrap; }
+.b83-wetter-help__code code { margin-right: 6px; }
+.b83-wetter-iconsets { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 14px; margin-top: 10px; }
+.b83-wetter-iconset { padding: 12px 14px; border: 1px solid #dcdcde; border-radius: 8px; color: #1d2327; }
+.b83-wetter-iconset__grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 8px; margin-top: 10px; }
+.b83-wetter-iconset .b83w-icon { width: 100%; height: auto; aspect-ratio: 1; }

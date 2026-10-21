@@ -1,0 +1,214 @@
+/* b83 Wetter – Frontend
+ *
+ * Alle Farben und Größen kommen als CSS-Variablen vom Widget (Backend bzw.
+ * Shortcode). Im Theme lassen sie sich überschreiben, z. B.:
+ *   .b83-wetter--klein { --b83w-color: #fff; --b83w-fs: 14px; }
+ */
+
+.b83-wetter {
+	--b83w-gap: .75em;
+	box-sizing: border-box;
+	color: var(--b83w-color, inherit);
+	background: var(--b83w-bg, transparent);
+	border: var(--b83w-border, 0 solid transparent);
+	border-radius: var(--b83w-radius, 10px);
+	padding: var(--b83w-pad, 0);
+	font-size: var(--b83w-fs, 15px);
+	line-height: 1.35;
+}
+.b83-wetter *,
+.b83-wetter *::before,
+.b83-wetter *::after { box-sizing: border-box; }
+.b83-wetter a { color: inherit; }
+.b83-wetter ul { list-style: none; margin: 0; padding: 0; }
+.b83-wetter li { margin: 0; padding: 0; }
+.b83-wetter li::before,
+.b83-wetter li::marker { content: none; }
+
+.b83-wetter__muted { color: var(--b83w-muted, inherit); opacity: var(--b83w-muted-opacity, .72); }
+.b83-wetter__sr {
+	position: absolute !important;
+	width: 1px; height: 1px;
+	padding: 0; margin: -1px;
+	overflow: hidden; clip: rect(0, 0, 0, 0);
+	white-space: nowrap; border: 0;
+}
+.b83-wetter__temp {
+	font-weight: var(--b83w-weight, 600);
+	font-variant-numeric: tabular-nums;
+	line-height: 1;
+}
+.b83-wetter__mini { width: 1em; height: 1em; flex: none; vertical-align: -.125em; margin-right: .2em; }
+.b83-wetter__source { margin: 1em 0 0; font-size: .75em; line-height: 1.4; }
+.b83-wetter__source a { text-decoration: underline; text-underline-offset: 2px; }
+
+/* ------------------------------------------------------------------
+ * Icons
+ * ---------------------------------------------------------------- */
+
+.b83w-icon {
+	display: block;
+	flex: none;
+	width: var(--b83w-icon, 3em);
+	height: var(--b83w-icon, 3em);
+	overflow: visible;
+	color: var(--b83w-icon-color, currentColor);
+}
+.b83w-icon path,
+.b83w-icon circle { stroke-linecap: round; stroke-linejoin: round; }
+
+/* Farbig */
+.b83w-set-farbig .b83w-sun { fill: #fdb813; stroke: #f39c12; stroke-width: 1.2; }
+.b83w-set-farbig .b83w-ray { fill: none; stroke: #fdb813; stroke-width: 3.2; }
+.b83w-set-farbig .b83w-moon { fill: #f7d46b; stroke: #dfb33c; stroke-width: 1.2; }
+.b83w-set-farbig .b83w-cloud { fill: #f1f4f7; stroke: #93a2b1; stroke-width: 2; }
+.b83w-set-farbig .b83w-cloud--back { fill: #d3dbe3; stroke: #8796a5; }
+.b83w-set-farbig .b83w-cloud.is-dark { fill: #a3aeba; stroke: #66737f; }
+.b83w-set-farbig .b83w-cloud--back.is-dark { fill: #8592a0; stroke: #5d6976; }
+.b83w-set-farbig .b83w-drop { fill: none; stroke: #2d7fe0; stroke-width: 3.2; }
+.b83w-set-farbig .b83w-flake { fill: none; stroke: #45a0dc; stroke-width: 2.4; }
+.b83w-set-farbig .b83w-bolt { fill: #ffc107; stroke: #e09a00; stroke-width: 1.4; }
+.b83w-set-farbig .b83w-fog { fill: none; stroke: #93a2b1; stroke-width: 3.2; }
+
+/* Flach (farbig, ohne Konturen) */
+.b83w-set-flach .b83w-sun { fill: #ffb703; }
+.b83w-set-flach .b83w-ray { fill: none; stroke: #ffb703; stroke-width: 3.6; }
+.b83w-set-flach .b83w-moon { fill: #f4c95d; }
+.b83w-set-flach .b83w-cloud { fill: #cdd7e1; }
+.b83w-set-flach .b83w-cloud--back { fill: #aab8c6; }
+.b83w-set-flach .b83w-cloud.is-dark { fill: #8996a4; }
+.b83w-set-flach .b83w-cloud--back.is-dark { fill: #6b7886; }
+.b83w-set-flach .b83w-drop { fill: none; stroke: #3a86ff; stroke-width: 3.6; }
+.b83w-set-flach .b83w-flake { fill: none; stroke: #5fa8e8; stroke-width: 2.8; }
+.b83w-set-flach .b83w-bolt { fill: #ffb703; }
+.b83w-set-flach .b83w-fog { fill: none; stroke: #aab8c6; stroke-width: 3.6; }
+
+/* Linie (einfarbig, folgt der Textfarbe) */
+.b83w-set-linie .b83w-icon * { fill: none; stroke: currentColor; stroke-width: 2.6; }
+.b83w-set-linie .b83w-ray { stroke-width: 2.6; }
+.b83w-set-linie .b83w-flake { stroke-width: 2.2; }
+.b83w-set-linie .b83w-icon mask * { stroke: #000; }
+.b83w-set-linie .b83w-icon mask rect { fill: #fff; stroke: none; }
+.b83w-set-linie .b83w-icon mask path { fill: #000; stroke-width: 7; }
+
+/* Duoton (Textfarbe + Akzentfarbe) */
+.b83w-set-duoton .b83w-sun,
+.b83w-set-duoton .b83w-moon,
+.b83w-set-duoton .b83w-bolt { fill: var(--b83w-accent, #f2a31b); stroke: none; }
+.b83w-set-duoton .b83w-ray { fill: none; stroke: var(--b83w-accent, #f2a31b); stroke-width: 3; }
+.b83w-set-duoton .b83w-cloud { fill: currentColor; fill-opacity: .16; stroke: currentColor; stroke-width: 2.4; }
+.b83w-set-duoton .b83w-cloud--back { fill-opacity: .08; }
+.b83w-set-duoton .b83w-cloud.is-dark { fill-opacity: .38; }
+.b83w-set-duoton .b83w-drop,
+.b83w-set-duoton .b83w-flake { fill: none; stroke: currentColor; stroke-width: 2.6; }
+.b83w-set-duoton .b83w-flake { stroke-width: 2.2; }
+.b83w-set-duoton .b83w-fog { fill: none; stroke: currentColor; stroke-width: 2.6; opacity: .7; }
+
+/* ------------------------------------------------------------------
+ * Klein – einzeilig
+ * ---------------------------------------------------------------- */
+
+.b83-wetter--klein {
+	display: inline-flex;
+	align-items: center;
+	gap: .4em;
+	white-space: nowrap;
+	vertical-align: middle;
+	line-height: 1;
+	text-decoration: none;
+	--b83w-radius-fallback: 0;
+}
+a.b83-wetter--klein:hover .b83-wetter__temp,
+a.b83-wetter--klein:focus-visible .b83-wetter__temp { text-decoration: underline; text-underline-offset: 3px; }
+.b83-wetter--klein .b83w-icon { width: var(--b83w-icon, 1.6em); height: var(--b83w-icon, 1.6em); }
+.b83-wetter--klein .b83-wetter__place { font-weight: 500; }
+.b83-wetter--klein .b83-wetter__cond,
+.b83-wetter--klein .b83-wetter__minmax { font-size: .9em; }
+.b83-wetter--klein .b83-wetter__credit { font-size: .6em; text-decoration: none; align-self: flex-start; margin-left: -.15em; }
+
+/* ------------------------------------------------------------------
+ * Kompakt – Kopfzeile, Sidebar
+ * ---------------------------------------------------------------- */
+
+.b83-wetter--kompakt { display: flex; flex-direction: column; gap: var(--b83w-gap); max-width: 100%; }
+.b83-wetter--kompakt .b83-wetter__now { display: flex; align-items: center; gap: .7em; }
+.b83-wetter--kompakt .b83-wetter__now-text { min-width: 0; }
+.b83-wetter--kompakt .b83-wetter__temp { font-size: var(--b83w-temp, 2.4em); }
+.b83-wetter--kompakt .b83-wetter__cond { margin-top: .25em; }
+.b83-wetter--kompakt .b83-wetter__place { font-size: .85em; margin-top: .1em; }
+.b83-wetter--kompakt .b83-wetter__days {
+	display: grid;
+	grid-template-columns: repeat(var(--b83w-cols, 3), minmax(0, 1fr));
+	gap: .4em;
+	padding-top: var(--b83w-gap);
+	border-top: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+	text-align: center;
+}
+.b83-wetter--kompakt .b83-wetter__day { display: flex; flex-direction: column; align-items: center; gap: .2em; }
+.b83-wetter--kompakt .b83-wetter__day .b83w-icon { width: 2.1em; height: 2.1em; }
+.b83-wetter--kompakt .b83-wetter__dayname { font-size: .85em; font-weight: 600; }
+.b83-wetter--kompakt .b83-wetter__range { font-size: .9em; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.b83-wetter--kompakt .b83-wetter__max { font-weight: 600; }
+.b83-wetter--kompakt .b83-wetter__source { margin: 0; }
+.b83-wetter--kompakt .b83-wetter__more { font-size: .85em; font-weight: 600; }
+
+/* ------------------------------------------------------------------
+ * Ausführlich – Wetterseite
+ * ---------------------------------------------------------------- */
+
+.b83-wetter--ausfuehrlich { display: flex; flex-direction: column; gap: 1.25em; }
+.b83-wetter--ausfuehrlich .b83-wetter__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .25em 1em; }
+.b83-wetter--ausfuehrlich .b83-wetter__title { font-size: 1.35em; font-weight: 700; line-height: 1.2; }
+.b83-wetter--ausfuehrlich .b83-wetter__now { display: flex; flex-wrap: wrap; align-items: center; gap: 1em 1.5em; }
+.b83-wetter--ausfuehrlich .b83-wetter__now-text { min-width: 9em; }
+.b83-wetter--ausfuehrlich .b83-wetter__temp { font-size: var(--b83w-temp, 3.5em); }
+.b83-wetter--ausfuehrlich .b83-wetter__now .b83-wetter__cond { font-size: 1.15em; margin-top: .3em; }
+.b83-wetter--ausfuehrlich .b83-wetter__today { margin-top: .2em; }
+.b83-wetter--ausfuehrlich .b83-wetter__facts {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(9.5em, 1fr));
+	gap: .6em 1.4em;
+	flex: 1 1 18em;
+	margin: 0;
+}
+.b83-wetter--ausfuehrlich .b83-wetter__facts div { margin: 0; }
+.b83-wetter--ausfuehrlich .b83-wetter__facts dt { font-size: .8em; opacity: var(--b83w-muted-opacity, .72); color: var(--b83w-muted, inherit); margin: 0; font-weight: 400; }
+.b83-wetter--ausfuehrlich .b83-wetter__facts dd { margin: .1em 0 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+.b83-wetter--ausfuehrlich .b83-wetter__days {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(8.5em, 1fr));
+	gap: .6em;
+}
+.b83-wetter--ausfuehrlich .b83-wetter__day {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: .3em;
+	padding: .9em .6em;
+	border-radius: max(calc(var(--b83w-radius, 10px) - 2px), 0px);
+	background: var(--b83w-card, color-mix(in srgb, currentColor 6%, transparent));
+	text-align: center;
+}
+.b83-wetter--ausfuehrlich .b83-wetter__day.is-today { box-shadow: inset 0 0 0 2px color-mix(in srgb, currentColor 22%, transparent); }
+.b83-wetter--ausfuehrlich .b83-wetter__day .b83w-icon { width: var(--b83w-day-icon, 3em); height: var(--b83w-day-icon, 3em); margin: .15em 0; }
+.b83-wetter--ausfuehrlich .b83-wetter__dayname { font-weight: 700; }
+.b83-wetter--ausfuehrlich .b83-wetter__daydate { font-size: .8em; margin-top: -.25em; }
+.b83-wetter--ausfuehrlich .b83-wetter__day .b83-wetter__cond { font-size: .82em; line-height: 1.25; min-height: 2.5em; display: flex; align-items: center; }
+.b83-wetter--ausfuehrlich .b83-wetter__range { display: flex; gap: .5em; font-variant-numeric: tabular-nums; }
+.b83-wetter--ausfuehrlich .b83-wetter__max { font-weight: 700; font-size: 1.15em; }
+.b83-wetter--ausfuehrlich .b83-wetter__min { font-size: 1.15em; }
+.b83-wetter--ausfuehrlich .b83-wetter__extra { display: flex; flex-wrap: wrap; justify-content: center; gap: .15em .7em; font-size: .78em; white-space: nowrap; }
+.b83-wetter--ausfuehrlich .b83-wetter__source { margin: 0; }
+
+@media (max-width: 480px) {
+	.b83-wetter--ausfuehrlich .b83-wetter__days { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Hinweis für Redakteure (nur angemeldet sichtbar) */
+.b83-wetter-notice {
+	padding: .6em .9em;
+	border-left: 4px solid #dba617;
+	background: #fcf9e8;
+	color: #1d2327;
+	font-size: 14px;
+}
