@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.1 – 2026-11-01
+
+### Behoben
+- b83-Übersicht: Plugin-Icons erschienen als defekte Bilder
+- Icons von Pro-Versionen fehlten im b83-Menü (b83-Menü Version 3)
+
 ## 1.2.0 – 2026-11-01
 
 ### Neu

@@ -3,7 +3,7 @@
  * Plugin Name:       b83 Wetter
  * Plugin URI:        https://b83.at
  * Description:       Wettervorhersage aus offenen Daten (GeoSphere Austria, MET Norway) mit drei Darstellungen – klein, kompakt und ausführlich – per Shortcode oder Elementor-Widget.
- * Version:           1.2.0
+ * Version:           1.2.1
  * Requires at least: 6.2
  * Requires PHP:      8.1
  * Author:            b83 – Wolfgang Grabs-Schrempf
@@ -21,7 +21,7 @@ declare(strict_types=1);
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'B83_WETTER_VERSION', '1.2.0' );
+define( 'B83_WETTER_VERSION', '1.2.1' );
 define( 'B83_WETTER_FILE', __FILE__ );
 define( 'B83_WETTER_DIR', plugin_dir_path( __FILE__ ) );
 define( 'B83_WETTER_URL', plugin_dir_url( __FILE__ ) );
