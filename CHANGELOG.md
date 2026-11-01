@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0 – 2026-11-01
+
+### Neu
+- Eigenes Icon und Banner im b83-Stil: erscheinen in der Update-Liste und unter „Details ansehen“
+- „Details ansehen“ zeigt jetzt eine Beschreibung des Plugins
+
 ## 1.0.0 – 2026-10-21
 
 - Erste Version

@@ -67,6 +67,8 @@ final class Updater {
 			'package'      => $release['package'],
 			'requires_php' => '8.1',
 			'requires'     => '6.2',
+			'icons'        => $this->icons(),
+			'banners'      => $this->banners(),
 		);
 	}
 
@@ -97,8 +99,11 @@ final class Updater {
 			'requires_php'  => '8.1',
 			'last_updated'  => $release['published'],
 			'download_link' => $release['package'],
+			'icons'         => $this->icons(),
+			'banners'       => $this->banners(),
 			'sections'      => array(
-				'changelog' => $release['notes'],
+				'description' => $this->description(),
+				'changelog'   => $release['notes'],
 			),
 		);
 	}
@@ -148,6 +153,48 @@ final class Updater {
 		);
 		set_transient( self::TRANSIENT, $release, 6 * HOUR_IN_SECONDS );
 		return $release;
+	}
+
+	/**
+	 * Icons für die Update-Liste und „Details ansehen“.
+	 *
+	 * @return array<string,string>
+	 */
+	private function icons(): array {
+		$url = plugin_dir_url( B83_WETTER_FILE ) . 'assets/img/';
+		return array(
+			'1x'  => $url . 'icon-128x128.png',
+			'2x'  => $url . 'icon-256x256.png',
+			'svg' => $url . 'icon.svg',
+		);
+	}
+
+	/**
+	 * Banner für „Details ansehen“.
+	 *
+	 * @return array<string,string>
+	 */
+	private function banners(): array {
+		$url = plugin_dir_url( B83_WETTER_FILE ) . 'assets/img/';
+		return array(
+			'low'  => $url . 'banner-772x250.png',
+			'high' => $url . 'banner-1544x500.png',
+		);
+	}
+
+	/** Beschreibung für „Details ansehen“. */
+	private function description(): string {
+		$html = '';
+		$html .= '<p>' . esc_html__( 'Wettervorhersage aus den offenen Daten von GeoSphere Austria, ergänzt durch MET Norway. Den Abruf erledigt der Server, Besucher verbinden sich nie mit einem Wetterdienst und werden nicht getrackt.', 'b83-wetter' ) . '</p>';
+		$html .= '<p>' . esc_html__( 'Klein passt die Anzeige neben die Navigation, kompakt in Kopfzeile oder Sidebar, ausführlich auf eine eigene Wetterseite mit bis zu sieben Tagen.', 'b83-wetter' ) . '</p>';
+		$html .= '<ul>';
+		$html .= '<li>' . esc_html__( 'Vier Icon-Sets', 'b83-wetter' ) . '</li>';
+		$html .= '<li>' . esc_html__( 'Farben und Größen je Darstellung, mit Live-Vorschau', 'b83-wetter' ) . '</li>';
+		$html .= '<li>' . esc_html__( 'Einbindung per Shortcode oder Elementor-Widget', 'b83-wetter' ) . '</li>';
+		$html .= '<li>' . esc_html__( 'Ein fester Standort, Seehöhe optional', 'b83-wetter' ) . '</li>';
+		$html .= '</ul>';
+		$html .= '<p>' . esc_html__( 'Ein Plugin von b83 – Strategisches Online Marketing.', 'b83-wetter' ) . ' <a href="https://b83.at">b83.at</a></p>';
+		return $html;
 	}
 
 	/* ---------------------------------------------------------------------

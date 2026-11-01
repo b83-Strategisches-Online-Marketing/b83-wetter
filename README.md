@@ -1,3 +1,5 @@
+![](assets/img/banner-772x250.png)
+
 # b83 Wetter
 
 Wettervorhersage für WordPress aus offenen Daten von **GeoSphere Austria** und **MET Norway** – mit drei Darstellungen, frei gestaltbar, ohne Tracking.
