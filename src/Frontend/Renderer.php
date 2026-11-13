@@ -126,6 +126,7 @@ final class Renderer {
 			'data-b83w-view'  => $view,
 			'data-b83w-stand' => (string) $forecast->fetched(),
 			'data-b83w-age'   => (string) $max_age,
+			'data-b83w-lang'  => get_locale(),
 		);
 		if ( ! empty( $args ) ) {
 			$attrs['data-b83w-args'] = (string) wp_json_encode( $args );
@@ -265,7 +266,7 @@ final class Renderer {
 		$out = '';
 		if ( '1' === $design['show_location'] && '' !== $ctx['title'] ) {
 			$out .= '<div class="b83-wetter__head"><div class="b83-wetter__title">' . esc_html( $ctx['title'] ) . '</div>'
-				. '<div class="b83-wetter__muted b83-wetter__date">' . esc_html( wp_date( 'l, j. F', time() ) ) . '</div></div>';
+				. '<div class="b83-wetter__muted b83-wetter__date">' . esc_html( wp_date( _x( 'l, j. F', 'Datumsformat Wetterseite', 'b83-wetter' ), time() ) ) . '</div></div>';
 		}
 
 		$out .= '<div class="b83-wetter__now">';
@@ -367,7 +368,7 @@ final class Renderer {
 		);
 		if ( $long && $forecast->fetched() > 0 ) {
 			/* translators: %s: Uhrzeit */
-			$text .= ' · ' . esc_html( sprintf( __( 'Stand %s Uhr', 'b83-wetter' ), wp_date( 'H:i', $forecast->fetched() ) ) );
+			$text .= ' · ' . esc_html( sprintf( __( 'Stand %s Uhr', 'b83-wetter' ), wp_date( _x( 'H:i', 'Uhrzeit Datenstand', 'b83-wetter' ), $forecast->fetched() ) ) );
 		}
 		return '<p class="b83-wetter__source b83-wetter__muted">' . $text . '</p>';
 	}
@@ -512,7 +513,7 @@ final class Renderer {
 
 	private function day_date( string $date ): string {
 		$ts = ( new \DateTimeImmutable( $date . ' 12:00', wp_timezone() ) )->getTimestamp();
-		return (string) wp_date( 'j.n.', $ts );
+		return (string) wp_date( _x( 'j.n.', 'Datumsformat Tageskarte', 'b83-wetter' ), $ts );
 	}
 
 	/** Kleine Symbole für Niederschlag und Wind (einfarbig). */

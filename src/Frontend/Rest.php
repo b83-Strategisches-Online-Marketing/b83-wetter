@@ -47,6 +47,10 @@ final class Rest {
 						'type'    => 'string',
 						'default' => '',
 					),
+					'lang' => array(
+						'type'    => 'string',
+						'default' => '',
+					),
 				),
 			)
 		);
@@ -63,6 +67,13 @@ final class Rest {
 		// Nur skalare Werte zulassen.
 		$args = array_filter( $args, 'is_scalar' );
 
+		// In der Sprache der Seite ausgeben (z. B. WPML /en/). Nur installierte Sprachen werden akzeptiert.
+		$lang     = (string) $request->get_param( 'lang' );
+		$switched = false;
+		if ( 1 === preg_match( '/^[a-z]{2,3}(_[A-Z]{2})?(_[a-z0-9]+)?$/', $lang ) && $lang !== get_locale() ) {
+			$switched = switch_to_locale( $lang );
+		}
+
 		$html = $this->renderer->render(
 			$view,
 			Shortcode::overrides( $args, $view ),
@@ -72,6 +83,10 @@ final class Rest {
 				'class' => Sanitizer::text( $args['class'] ?? '', 100 ),
 			)
 		);
+
+		if ( $switched ) {
+			restore_previous_locale();
+		}
 
 		$response = new \WP_REST_Response( array( 'html' => $html ) );
 		// Kurz zwischenspeichern dürfen Browser und Proxy (Daten ändern sich höchstens alle 30 Minuten).

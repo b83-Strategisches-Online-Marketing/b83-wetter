@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.0 – 2026-11-13
+
+### Neu
+- Englische Übersetzung (en_US und en_GB): Wetterlagen, Wochentage, Beschriftungen und Quellenangabe erscheinen auf englischen Seiten auf Englisch
+- Mehrsprachige Websites (WPML, Polylang): Das Widget erscheint in der Sprache der Seite – auch wenn es veraltete Werte aus dem Seiten-Cache nachlädt
+- `wpml-config.xml`: Der Ortsname lässt sich in WPML → String-Übersetzung übersetzen
+- Datumsformate je Sprache (z. B. „Friday, November 13“, „11/13“, „5:01 pm“)
+
 ## 1.2.1 – 2026-11-01
 
 ### Behoben

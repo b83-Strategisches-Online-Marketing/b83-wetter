@@ -73,6 +73,14 @@ Die Quellenangabe ist Pflicht und wird automatisch ausgegeben (kompakt und ausf�
 
 Liegt eine Seite länger im Seiten-Cache als das Aktualisierungsintervall, holt sich das Widget aktuelle Werte über den REST-Endpunkt der eigenen Website (`/wp-json/b83-wetter/v1/widget`).
 
+## Sprachen und WPML
+
+Die Texte im Code sind deutsch. Englisch liegt bei (`languages/`, en_US und en_GB) – inklusive Wetterlagen, Wochentage, Datumsformate und Quellenangabe. Das Widget folgt der Sprache der Seite: Auf `/en/` einer WPML-Website erscheint es auf Englisch, auch beim Nachladen über `/wp-json/b83-wetter/v1/widget` (Parameter `lang`).
+
+- Ortsname übersetzen: WPML → String-Übersetzung, Domäne `admin_texts_b83_wetter_settings` (über `wpml-config.xml` registriert)
+- Weitere Sprachen: `languages/b83-wetter.pot` mit Poedit übersetzen und als `b83-wetter-<locale>.po/.mo` in `languages/` ablegen – oder in WPML → String-Übersetzung die Domäne `b83-wetter` übersetzen
+- Vorlage neu erzeugen: `wp i18n make-pot . languages/b83-wetter.pot --domain=b83-wetter --exclude=.github --skip-js`, danach `wp i18n make-mo languages` und `wp i18n make-php languages`
+
 ## Hooks
 
 | Hook | Typ | Zweck |

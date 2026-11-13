@@ -20,9 +20,10 @@ final class Conditions {
 	 * @return array<string,array{0:string,1:string,2:int,3:int|null}>
 	 */
 	public static function all(): array {
-		static $all = null;
-		if ( null !== $all ) {
-			return $all;
+		static $cache = array();
+		$locale = get_locale();
+		if ( isset( $cache[ $locale ] ) ) {
+			return $cache[ $locale ];
 		}
 		$all = array(
 			'clear'        => array( __( 'Sonnig', 'b83-wetter' ), __( 'Klar', 'b83-wetter' ), 0, 0 ),
@@ -42,6 +43,7 @@ final class Conditions {
 			'snow_heavy'   => array( __( 'Starker Schneefall', 'b83-wetter' ), __( 'Starker Schneefall', 'b83-wetter' ), 9, null ),
 			'thunder'      => array( __( 'Gewitter', 'b83-wetter' ), __( 'Gewitter', 'b83-wetter' ), 10, null ),
 		);
+		$cache[ $locale ] = $all;
 		return $all;
 	}
 

@@ -252,8 +252,14 @@ final class AdminPage {
 		echo '<tr><th scope="row"><label for="b83-wetter-interval">' . esc_html__( 'Aktualisieren', 'b83-wetter' ) . '</label></th><td>';
 		echo '<select id="b83-wetter-interval" name="settings[interval]">';
 		foreach ( Sanitizer::INTERVALS as $minutes ) {
-			/* translators: %d: Minuten */
-			$label = $minutes < 60 ? sprintf( __( 'alle %d Minuten', 'b83-wetter' ), $minutes ) : sprintf( _n( 'jede Stunde', 'alle %d Stunden', (int) ( $minutes / 60 ), 'b83-wetter' ), (int) ( $minutes / 60 ) );
+			$hours = (int) ( $minutes / 60 );
+			if ( $minutes < 60 ) {
+				/* translators: %d: Minuten */
+				$label = sprintf( __( 'alle %d Minuten', 'b83-wetter' ), $minutes );
+			} else {
+				/* translators: %d: Stunden */
+				$label = sprintf( _n( 'jede Stunde', 'alle %d Stunden', $hours, 'b83-wetter' ), $hours );
+			}
 			echo '<option value="' . (int) $minutes . '"' . selected( (int) $s['interval'], $minutes, false ) . '>' . esc_html( $label ) . '</option>';
 		}
 		echo '</select>';
@@ -455,7 +461,7 @@ final class AdminPage {
 		$data     = $this->repository->get_data();
 		$forecast = $this->repository->forecast();
 		$location = $this->repository->location();
-		$fmt      = static fn( int $ts ): string => $ts > 0 ? wp_date( 'j.n.Y, H:i', $ts ) . ' ' . __( 'Uhr', 'b83-wetter' ) : '–';
+		$fmt      = static fn( int $ts ): string => $ts > 0 ? wp_date( _x( 'j.n.Y, H:i \\U\\h\\r', 'Datumsformat Status', 'b83-wetter' ), $ts ) : '–';
 
 		$modes = array(
 			'primary'  => __( 'Hauptquelle', 'b83-wetter' ),
@@ -515,7 +521,7 @@ final class AdminPage {
 			echo '</tr></thead><tbody>';
 			foreach ( $days as $day ) {
 				$ts = ( new \DateTimeImmutable( $day['date'] . ' 12:00', wp_timezone() ) )->getTimestamp();
-				echo '<tr><td>' . esc_html( wp_date( 'D, j.n.', $ts ) ) . '</td>'
+				echo '<tr><td>' . esc_html( wp_date( _x( 'D, j.n.', 'Datumsformat Kontrolltabelle', 'b83-wetter' ), $ts ) ) . '</td>'
 					. '<td class="b83-wetter-status__cond b83w-set-farbig">' . Icons::svg( (string) $day['cond'] ) . esc_html( Conditions::label( (string) $day['cond'] ) ) . '</td>' // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- SVG aus Icons.
 					. '<td>' . esc_html( $this->renderer->temp( (float) $day['max'] ) ) . '</td>'
 					. '<td>' . esc_html( $this->renderer->temp( (float) $day['min'] ) ) . '</td>'

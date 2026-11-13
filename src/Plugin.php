@@ -52,6 +52,7 @@ final class Plugin {
 		$this->booted = true;
 
 		add_action( 'init', array( $this, 'load_textdomain' ) );
+		add_action( 'change_locale', array( $this, 'reload_textdomain' ) );
 		add_action( 'admin_init', array( Migration::class, 'maybe_run' ) );
 
 		$pages = new CachePurge( $this->repository );
@@ -78,6 +79,12 @@ final class Plugin {
 
 	public function load_textdomain(): void {
 		load_plugin_textdomain( 'b83-wetter', false, dirname( plugin_basename( B83_WETTER_FILE ) ) . '/languages' );
+	}
+
+	/** Nach einem Sprachwechsel (z. B. WPML, REST-Nachladen) die passende Übersetzung laden. */
+	public function reload_textdomain(): void {
+		unload_textdomain( 'b83-wetter', true );
+		$this->load_textdomain();
 	}
 
 	public function repository(): Repository {

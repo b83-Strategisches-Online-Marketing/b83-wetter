@@ -1,0 +1,8 @@
+<wpml-config>
+	<!-- Ortsname aus b83 → Wetter in WPML → String-Übersetzung übersetzbar machen -->
+	<admin-texts>
+		<key name="b83_wetter_settings">
+			<key name="location_name" />
+		</key>
+	</admin-texts>
+</wpml-config>

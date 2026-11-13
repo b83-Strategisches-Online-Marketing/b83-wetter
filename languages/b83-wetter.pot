@@ -1,0 +1,1069 @@
+# Copyright (C) 2026 b83 – Wolfgang Grabs-Schrempf
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: b83 Wetter 1.2.1\n"
+"Report-Msgid-Bugs-To: office@b83.at\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-11-13T15:59:44+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: b83-wetter\n"
+
+#. Plugin Name of the plugin
+#: b83-wetter.php
+#: src/Admin/AdminPage.php:168
+#: src/Integrations/ElementorWidget.php:37
+msgid "b83 Wetter"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+#: b83-wetter.php
+msgid "https://b83.at"
+msgstr ""
+
+#. Description of the plugin
+#: b83-wetter.php
+msgid "Wettervorhersage aus offenen Daten (GeoSphere Austria, MET Norway) mit drei Darstellungen – klein, kompakt und ausführlich – per Shortcode oder Elementor-Widget."
+msgstr ""
+
+#. Author of the plugin
+#: b83-wetter.php
+msgid "b83 – Wolfgang Grabs-Schrempf"
+msgstr ""
+
+#: src/Admin/AdminPage.php:44
+msgid "Einstellungen gespeichert, Wetterdaten aktualisiert."
+msgstr ""
+
+#: src/Admin/AdminPage.php:45
+msgid "Einstellungen gespeichert. Die Wetterdaten konnten nicht abgerufen werden – Details unter „Status“."
+msgstr ""
+
+#: src/Admin/AdminPage.php:46
+msgid "Einstellungen gespeichert. Bitte Breite und Länge des Standorts eintragen."
+msgstr ""
+
+#: src/Admin/AdminPage.php:47
+msgid "Design gespeichert."
+msgstr ""
+
+#: src/Admin/AdminPage.php:48
+msgid "Wetterdaten aktualisiert."
+msgstr ""
+
+#: src/Admin/AdminPage.php:49
+msgid "Die Wetterdaten konnten nicht abgerufen werden – Details siehe unten."
+msgstr ""
+
+#: src/Admin/AdminPage.php:81
+#: src/Admin/AdminPage.php:82
+#: src/Integrations/ElementorWidget.php:67
+msgid "Wetter"
+msgstr ""
+
+#: src/Admin/AdminPage.php:103
+msgid "Einstellungen"
+msgstr ""
+
+#: src/Admin/AdminPage.php:132
+msgid "Kopiert!"
+msgstr ""
+
+#: src/Admin/AdminPage.php:133
+msgid "Suche …"
+msgstr ""
+
+#: src/Admin/AdminPage.php:134
+msgid "Ort nicht gefunden. Bitte genauer angeben oder Koordinaten eintragen."
+msgstr ""
+
+#: src/Admin/AdminPage.php:135
+msgid "Gefunden – Koordinaten übernommen. Bitte speichern."
+msgstr ""
+
+#: src/Admin/AdminPage.php:136
+msgid "Bitte zuerst einen Ort eingeben."
+msgstr ""
+
+#: src/Admin/AdminPage.php:137
+msgid "Vorschau wird geladen …"
+msgstr ""
+
+#: src/Admin/AdminPage.php:149
+#: src/Admin/AdminPage.php:625
+#: src/Admin/B83Menu.php:150
+msgid "Keine Berechtigung."
+msgstr ""
+
+#: src/Admin/AdminPage.php:158
+msgid "Standort und Daten"
+msgstr ""
+
+#: src/Admin/AdminPage.php:159
+msgid "Design"
+msgstr ""
+
+#: src/Admin/AdminPage.php:160
+msgid "Status"
+msgstr ""
+
+#: src/Admin/AdminPage.php:161
+msgid "Hilfe"
+msgstr ""
+
+#. translators: %s: Version
+#: src/Admin/AdminPage.php:200
+#, php-format
+msgid "b83 Wetter %s · b83 – Strategisches Online Marketing"
+msgstr ""
+
+#: src/Admin/AdminPage.php:215
+#: src/Admin/AdminPage.php:478
+msgid "Standort"
+msgstr ""
+
+#: src/Admin/AdminPage.php:216
+msgid "Ort suchen oder Koordinaten direkt eintragen (z. B. aus Google Maps: Rechtsklick auf den Ort)."
+msgstr ""
+
+#: src/Admin/AdminPage.php:219
+msgid "z. B. Abtenau, Salzburg"
+msgstr ""
+
+#: src/Admin/AdminPage.php:220
+msgid "Ort suchen"
+msgstr ""
+
+#: src/Admin/AdminPage.php:225
+msgid "Ortsname (Anzeige)"
+msgstr ""
+
+#: src/Admin/AdminPage.php:225
+msgid "Abtenau"
+msgstr ""
+
+#: src/Admin/AdminPage.php:226
+msgid "Seehöhe in m (optional)"
+msgstr ""
+
+#: src/Admin/AdminPage.php:227
+msgid "Breite (Latitude)"
+msgstr ""
+
+#: src/Admin/AdminPage.php:228
+msgid "Länge (Longitude)"
+msgstr ""
+
+#: src/Admin/AdminPage.php:230
+msgid "Die Seehöhe hilft MET Norway, die Temperatur für Orte im Gebirge richtig zu berechnen."
+msgstr ""
+
+#: src/Admin/AdminPage.php:234
+msgid "Datenquelle"
+msgstr ""
+
+#: src/Admin/AdminPage.php:237
+#: src/Admin/AdminPage.php:467
+msgid "Hauptquelle"
+msgstr ""
+
+#: src/Admin/AdminPage.php:240
+msgid "GeoSphere Austria – Österreich und Alpenraum, 2,5 km, rund 2,5 Tage"
+msgstr ""
+
+#: src/Admin/AdminPage.php:241
+msgid "MET Norway – weltweit, rund 9 Tage"
+msgstr ""
+
+#: src/Admin/AdminPage.php:247
+msgid "Fallback"
+msgstr ""
+
+#: src/Admin/AdminPage.php:248
+msgid "Bei Ausfall die andere Quelle verwenden und fehlende Tage von dort ergänzen (empfohlen)"
+msgstr ""
+
+#: src/Admin/AdminPage.php:249
+msgid "GeoSphere rechnet nur rund 2,5 Tage voraus. Für 5–7 Tage ergänzt das Plugin die weiteren Tage automatisch von MET Norway."
+msgstr ""
+
+#: src/Admin/AdminPage.php:252
+msgid "Aktualisieren"
+msgstr ""
+
+#. translators: %d: Minuten
+#: src/Admin/AdminPage.php:258
+#, php-format
+msgid "alle %d Minuten"
+msgstr ""
+
+#. translators: %d: Stunden
+#: src/Admin/AdminPage.php:261
+msgid "jede Stunde"
+msgid_plural "alle %d Stunden"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Admin/AdminPage.php:266
+msgid "Die Daten werden auf dem Server abgerufen und zwischengespeichert. Besucher verbinden sich nie mit einem Wetterdienst."
+msgstr ""
+
+#: src/Admin/AdminPage.php:272
+msgid "Wetterseite und Cache"
+msgstr ""
+
+#: src/Admin/AdminPage.php:275
+msgid "Wetterseite"
+msgstr ""
+
+#: src/Admin/AdminPage.php:281
+msgid "— keine —"
+msgstr ""
+
+#: src/Admin/AdminPage.php:285
+msgid "Klein und Kompakt verlinken auf diese Seite. Dort am besten die ausführliche Darstellung einbinden – sie enthält auch die vollständige Quellenangabe."
+msgstr ""
+
+#: src/Admin/AdminPage.php:288
+msgid "Seiten-Cache"
+msgstr ""
+
+#: src/Admin/AdminPage.php:289
+msgid "Nach dem Speichern den Cache der Seiten mit Wetter leeren"
+msgstr ""
+
+#. translators: %s: Name des Cache-Plugins
+#: src/Admin/AdminPage.php:294
+#, php-format
+msgid "Erkannt: %s. Stündliche Wetterdaten leeren den Cache nicht – veraltete Widgets laden die aktuellen Werte selbst nach."
+msgstr ""
+
+#: src/Admin/AdminPage.php:295
+msgid "Kein Cache-Plugin erkannt. Veraltete Widgets aus einem Seiten-Cache laden die aktuellen Werte selbst nach."
+msgstr ""
+
+#: src/Admin/AdminPage.php:299
+msgid "Deinstallation"
+msgstr ""
+
+#: src/Admin/AdminPage.php:300
+msgid "Beim Löschen des Plugins alle Einstellungen und Daten entfernen"
+msgstr ""
+
+#: src/Admin/AdminPage.php:305
+msgid "Speichern und Wetter abrufen"
+msgstr ""
+
+#: src/Admin/AdminPage.php:318
+msgid "Diese Werte gelten überall, wo das Wetter eingebunden ist. Einzelne Widgets lassen sich per Shortcode-Attribut oder im Elementor-Widget anders gestalten."
+msgstr ""
+
+#: src/Admin/AdminPage.php:321
+msgid "Design speichern"
+msgstr ""
+
+#: src/Admin/AdminPage.php:326
+msgid "Vorschau"
+msgstr ""
+
+#: src/Admin/AdminPage.php:327
+msgid "Hintergrund der Vorschau"
+msgstr ""
+
+#: src/Admin/AdminPage.php:329
+msgid "Hell"
+msgstr ""
+
+#: src/Admin/AdminPage.php:330
+msgid "Dunkel"
+msgstr ""
+
+#: src/Admin/AdminPage.php:358
+msgid "Musterort"
+msgstr ""
+
+#: src/Admin/AdminPage.php:359
+msgid "Beispieldaten – echte Werte erscheinen, sobald ein Standort eingetragen und abgerufen ist."
+msgstr ""
+
+#: src/Admin/AdminPage.php:362
+msgid "Klein"
+msgstr ""
+
+#: src/Admin/AdminPage.php:363
+#: src/Integrations/ElementorWidget.php:78
+msgid "Kompakt"
+msgstr ""
+
+#: src/Admin/AdminPage.php:364
+#: src/Integrations/ElementorWidget.php:79
+msgid "Ausführlich"
+msgstr ""
+
+#: src/Admin/AdminPage.php:369
+msgid "Start"
+msgstr ""
+
+#: src/Admin/AdminPage.php:369
+msgid "Zimmer"
+msgstr ""
+
+#: src/Admin/AdminPage.php:369
+msgid "Kontakt"
+msgstr ""
+
+#: src/Admin/AdminPage.php:464
+msgctxt "Datumsformat Status"
+msgid "j.n.Y, H:i \\U\\h\\r"
+msgstr ""
+
+#: src/Admin/AdminPage.php:468
+msgid "Fallback (Hauptquelle nicht erreichbar)"
+msgstr ""
+
+#: src/Admin/AdminPage.php:469
+msgid "Hauptquelle, weitere Tage ergänzt"
+msgstr ""
+
+#: src/Admin/AdminPage.php:478
+msgid "nicht eingetragen"
+msgstr ""
+
+#: src/Admin/AdminPage.php:479
+msgid "Letzte erfolgreiche Abfrage"
+msgstr ""
+
+#: src/Admin/AdminPage.php:480
+msgid "Letzter Versuch"
+msgstr ""
+
+#: src/Admin/AdminPage.php:481
+msgid "Verwendete Daten"
+msgstr ""
+
+#: src/Admin/AdminPage.php:482
+msgid "Vorhersage reicht bis"
+msgstr ""
+
+#: src/Admin/AdminPage.php:483
+msgid "Nächste geplante Abfrage"
+msgstr ""
+
+#: src/Admin/AdminPage.php:486
+msgid "Wetterdaten"
+msgstr ""
+
+#: src/Admin/AdminPage.php:495
+msgid "Meldungen beim letzten Versuch:"
+msgstr ""
+
+#: src/Admin/AdminPage.php:504
+msgid "Hinweis: WP-Cron ist deaktiviert (DISABLE_WP_CRON). Bitte sicherstellen, dass ein Server-Cron wp-cron.php regelmäßig aufruft."
+msgstr ""
+
+#: src/Admin/AdminPage.php:510
+msgid "Jetzt aktualisieren"
+msgstr ""
+
+#: src/Admin/AdminPage.php:516
+msgid "Tageswerte zur Kontrolle"
+msgstr ""
+
+#: src/Admin/AdminPage.php:518
+msgid "Tag"
+msgstr ""
+
+#: src/Admin/AdminPage.php:518
+msgid "Wetterlage"
+msgstr ""
+
+#: src/Admin/AdminPage.php:518
+msgid "Max"
+msgstr ""
+
+#: src/Admin/AdminPage.php:518
+msgid "Min"
+msgstr ""
+
+#: src/Admin/AdminPage.php:518
+#: src/Frontend/Renderer.php:334
+msgid "Niederschlag"
+msgstr ""
+
+#: src/Admin/AdminPage.php:518
+msgid "Wind max."
+msgstr ""
+
+#: src/Admin/AdminPage.php:524
+msgctxt "Datumsformat Kontrolltabelle"
+msgid "D, j.n."
+msgstr ""
+
+#: src/Admin/AdminPage.php:537
+msgid "Einbinden"
+msgstr ""
+
+#: src/Admin/AdminPage.php:538
+msgid "Per Shortcode (auch im Elementor-Widget „Shortcode“, in Kopf- und Fußzeilen-Vorlagen) oder mit dem Elementor-Widget „b83 Wetter“."
+msgstr ""
+
+#: src/Admin/AdminPage.php:541
+msgid "Einzeilig, z. B. neben der Navigation"
+msgstr ""
+
+#: src/Admin/AdminPage.php:542
+msgid "Einzeilig, weiße Schrift für eine dunkle Kopfzeile"
+msgstr ""
+
+#: src/Admin/AdminPage.php:543
+msgid "Mit Höchst- und Tiefstwert von heute"
+msgstr ""
+
+#: src/Admin/AdminPage.php:544
+msgid "Kompakt (Standard) – Kopfzeile, Sidebar"
+msgstr ""
+
+#: src/Admin/AdminPage.php:545
+msgid "Kompakt, nur aktuelles Wetter"
+msgstr ""
+
+#: src/Admin/AdminPage.php:546
+#: src/Design.php:322
+msgid "Ausführlich – Wetterseite"
+msgstr ""
+
+#: src/Admin/AdminPage.php:547
+msgid "Ausführlich mit 5 Tagen und Linien-Icons"
+msgstr ""
+
+#: src/Admin/AdminPage.php:551
+msgid "Kopieren"
+msgstr ""
+
+#: src/Admin/AdminPage.php:555
+msgid "Attribute"
+msgstr ""
+
+#: src/Admin/AdminPage.php:557
+#: src/Integrations/ElementorWidget.php:73
+msgid "Darstellung"
+msgstr ""
+
+#: src/Admin/AdminPage.php:558
+#: src/Design.php:157
+#: src/Design.php:216
+#: src/Design.php:283
+#: src/Integrations/ElementorWidget.php:153
+msgid "Textfarbe"
+msgstr ""
+
+#: src/Admin/AdminPage.php:559
+#: src/Design.php:78
+#: src/Design.php:165
+#: src/Design.php:224
+#: src/Design.php:291
+#: src/Integrations/ElementorWidget.php:154
+msgid "Hintergrund"
+msgstr ""
+
+#: src/Admin/AdminPage.php:560
+msgid "Schriftgröße in px"
+msgstr ""
+
+#: src/Admin/AdminPage.php:561
+msgid "Schriftgröße der Temperatur in px (kompakt, ausführlich)"
+msgstr ""
+
+#: src/Admin/AdminPage.php:562
+msgid "Icon-Größe in px"
+msgstr ""
+
+#: src/Admin/AdminPage.php:563
+msgid "Innenabstand in px"
+msgstr ""
+
+#: src/Admin/AdminPage.php:564
+msgid "Anzahl Tage (kompakt: Folgetage, ausführlich: inkl. heute)"
+msgstr ""
+
+#: src/Admin/AdminPage.php:565
+msgid "Inhalt der kleinen Darstellung"
+msgstr ""
+
+#: src/Admin/AdminPage.php:566
+#: src/Design.php:48
+#: src/Integrations/ElementorWidget.php:145
+msgid "Icon-Set"
+msgstr ""
+
+#: src/Admin/AdminPage.php:567
+#: src/Integrations/ElementorWidget.php:155
+msgid "Akzentfarbe"
+msgstr ""
+
+#: src/Admin/AdminPage.php:568
+msgid "Ortsname überschreiben"
+msgstr ""
+
+#: src/Admin/AdminPage.php:568
+#: src/Admin/AdminPage.php:570
+msgid "Text"
+msgstr ""
+
+#: src/Admin/AdminPage.php:569
+msgid "Link (klein, kompakt)"
+msgstr ""
+
+#: src/Admin/AdminPage.php:569
+msgid "URL, Seiten-ID oder none"
+msgstr ""
+
+#: src/Admin/AdminPage.php:570
+msgid "Eigene CSS-Klasse"
+msgstr ""
+
+#: src/Admin/AdminPage.php:572
+msgid "Attribut"
+msgstr ""
+
+#: src/Admin/AdminPage.php:572
+msgid "Bedeutung"
+msgstr ""
+
+#: src/Admin/AdminPage.php:572
+msgid "Werte"
+msgstr ""
+
+#: src/Admin/AdminPage.php:577
+msgid "Fehlt ein Attribut, gilt der Wert aus dem Design-Reiter."
+msgstr ""
+
+#: src/Admin/AdminPage.php:579
+msgid "Icon-Sets"
+msgstr ""
+
+#: src/Admin/AdminPage.php:592
+msgid "Datenquellen und Lizenz"
+msgstr ""
+
+#: src/Admin/AdminPage.php:593
+msgid "Die Daten stammen von GeoSphere Austria und MET Norway und stehen unter der Lizenz CC BY 4.0. Die Quellenangabe ist Pflicht: Kompakt und Ausführlich zeigen sie direkt an, die kleine Darstellung mit einem ©-Zeichen – oder, wenn eine Wetterseite eingestellt ist, über den Link dorthin."
+msgstr ""
+
+#: src/Admin/B83Menu.php:62
+msgid "Übersicht"
+msgstr ""
+
+#: src/Admin/B83Menu.php:166
+msgid "b83 Plugins"
+msgstr ""
+
+#: src/Admin/B83Menu.php:167
+msgid "Entwickelt und betreut von b83 – Strategisches Online Marketing."
+msgstr ""
+
+#: src/Admin/B83Menu.php:182
+msgid "aktiv"
+msgstr ""
+
+#: src/Admin/B83Menu.php:182
+msgid "inaktiv"
+msgstr ""
+
+#. translators: %s: Versionsnummer
+#: src/Admin/B83Menu.php:186
+#, php-format
+msgid "Version %s"
+msgstr ""
+
+#: src/Admin/B83Menu.php:189
+msgid "Öffnen"
+msgstr ""
+
+#: src/Conditions.php:29
+msgid "Sonnig"
+msgstr ""
+
+#: src/Conditions.php:29
+msgid "Klar"
+msgstr ""
+
+#: src/Conditions.php:30
+msgid "Heiter"
+msgstr ""
+
+#: src/Conditions.php:30
+msgid "Überwiegend klar"
+msgstr ""
+
+#: src/Conditions.php:31
+msgid "Teilweise bewölkt"
+msgstr ""
+
+#: src/Conditions.php:32
+msgid "Stark bewölkt"
+msgstr ""
+
+#: src/Conditions.php:33
+msgid "Bedeckt"
+msgstr ""
+
+#: src/Conditions.php:34
+msgid "Nebel"
+msgstr ""
+
+#: src/Conditions.php:35
+msgid "Leichter Regen"
+msgstr ""
+
+#: src/Conditions.php:36
+msgid "Regenschauer"
+msgstr ""
+
+#: src/Conditions.php:37
+msgid "Leichter Schneefall"
+msgstr ""
+
+#: src/Conditions.php:38
+msgid "Schneeschauer"
+msgstr ""
+
+#: src/Conditions.php:39
+msgid "Regen"
+msgstr ""
+
+#: src/Conditions.php:40
+msgid "Schneeregen"
+msgstr ""
+
+#: src/Conditions.php:41
+msgid "Schneefall"
+msgstr ""
+
+#: src/Conditions.php:42
+msgid "Starker Regen"
+msgstr ""
+
+#: src/Conditions.php:43
+msgid "Starker Schneefall"
+msgstr ""
+
+#: src/Conditions.php:44
+msgid "Gewitter"
+msgstr ""
+
+#: src/Data/GeoSphereSource.php:56
+msgid "Der Standort liegt außerhalb des Gebiets von GeoSphere Austria."
+msgstr ""
+
+#. translators: %d: HTTP-Statuscode
+#: src/Data/GeoSphereSource.php:92
+#, php-format
+msgid "GeoSphere Austria antwortet mit HTTP %d."
+msgstr ""
+
+#: src/Data/GeoSphereSource.php:109
+msgid "GeoSphere Austria: unerwartetes Datenformat."
+msgstr ""
+
+#: src/Data/GeoSphereSource.php:175
+msgid "GeoSphere Austria: zu wenige Daten erhalten."
+msgstr ""
+
+#. translators: %d: HTTP-Statuscode
+#: src/Data/MetNorwaySource.php:89
+#, php-format
+msgid "MET Norway antwortet mit HTTP %d."
+msgstr ""
+
+#: src/Data/MetNorwaySource.php:105
+msgid "MET Norway: unerwartetes Datenformat."
+msgstr ""
+
+#: src/Data/MetNorwaySource.php:172
+msgid "MET Norway: zu wenige Daten erhalten."
+msgstr ""
+
+#: src/Data/Refresher.php:39
+msgid "Kein Standort eingetragen."
+msgstr ""
+
+#: src/Design.php:55
+msgid "Akzentfarbe (Sonne, Icons im Duoton-Set)"
+msgstr ""
+
+#: src/Design.php:62
+msgid "Textfarbe (Vordergrund)"
+msgstr ""
+
+#: src/Design.php:63
+msgid "Leer = Schriftfarbe des Themes."
+msgstr ""
+
+#: src/Design.php:70
+msgid "Nebentext (Datum, Details, Quelle)"
+msgstr ""
+
+#: src/Design.php:71
+msgid "Leer = Textfarbe, etwas abgeschwächt."
+msgstr ""
+
+#: src/Design.php:79
+msgid "Leer = transparent."
+msgstr ""
+
+#: src/Design.php:85
+msgid "Rahmenstärke (px)"
+msgstr ""
+
+#: src/Design.php:94
+msgid "Rahmenfarbe"
+msgstr ""
+
+#: src/Design.php:100
+msgid "Eckenrundung (px)"
+msgstr ""
+
+#: src/Design.php:108
+msgid "Stärke der Temperatur"
+msgstr ""
+
+#: src/Design.php:110
+msgid "Normal"
+msgstr ""
+
+#: src/Design.php:111
+msgid "Halbfett"
+msgstr ""
+
+#: src/Design.php:112
+msgid "Fett"
+msgstr ""
+
+#: src/Design.php:113
+msgid "Leicht"
+msgstr ""
+
+#: src/Design.php:120
+msgid "Ortsnamen anzeigen (Kompakt, Ausführlich)"
+msgstr ""
+
+#: src/Design.php:128
+#: src/Integrations/ElementorWidget.php:87
+msgid "Inhalt"
+msgstr ""
+
+#: src/Design.php:130
+#: src/Integrations/ElementorWidget.php:92
+msgid "Icon + Temperatur"
+msgstr ""
+
+#: src/Design.php:131
+#: src/Integrations/ElementorWidget.php:93
+msgid "Icon + Temperatur + Wetterlage"
+msgstr ""
+
+#: src/Design.php:132
+msgid "Icon + Temperatur + Höchst-/Tiefstwert heute"
+msgstr ""
+
+#: src/Design.php:133
+#: src/Integrations/ElementorWidget.php:95
+msgid "Ort + Icon + Temperatur"
+msgstr ""
+
+#: src/Design.php:140
+#: src/Design.php:191
+#: src/Design.php:250
+#: src/Integrations/ElementorWidget.php:168
+msgid "Schriftgröße (px)"
+msgstr ""
+
+#: src/Design.php:148
+#: src/Design.php:207
+#: src/Integrations/ElementorWidget.php:170
+msgid "Icon-Größe (px)"
+msgstr ""
+
+#: src/Design.php:158
+#: src/Design.php:217
+#: src/Design.php:284
+msgid "Leer = allgemeine Textfarbe."
+msgstr ""
+
+#: src/Design.php:166
+#: src/Design.php:225
+#: src/Design.php:292
+msgid "Leer = allgemeiner Hintergrund."
+msgstr ""
+
+#: src/Design.php:172
+#: src/Design.php:231
+#: src/Design.php:306
+#: src/Integrations/ElementorWidget.php:171
+msgid "Innenabstand (px)"
+msgstr ""
+
+#: src/Design.php:182
+msgid "Folgetage anzeigen"
+msgstr ""
+
+#: src/Design.php:183
+msgid "0 = nur aktuelles Wetter."
+msgstr ""
+
+#: src/Design.php:199
+#: src/Design.php:258
+#: src/Integrations/ElementorWidget.php:169
+msgid "Schriftgröße Temperatur (px)"
+msgstr ""
+
+#: src/Design.php:241
+msgid "Tage anzeigen"
+msgstr ""
+
+#: src/Design.php:242
+msgid "GeoSphere rechnet rund 2,5 Tage voraus; weitere Tage kommen von MET Norway (Fallback muss aktiv sein)."
+msgstr ""
+
+#: src/Design.php:266
+msgid "Icon-Größe aktuell (px)"
+msgstr ""
+
+#: src/Design.php:274
+msgid "Icon-Größe Tage (px)"
+msgstr ""
+
+#: src/Design.php:299
+msgid "Hintergrund der Tageskarten"
+msgstr ""
+
+#: src/Design.php:300
+msgid "Leer = leicht getönt."
+msgstr ""
+
+#: src/Design.php:319
+msgid "Allgemein (alle Darstellungen)"
+msgstr ""
+
+#: src/Design.php:320
+msgid "Klein – einzeilig, z. B. neben der Navigation"
+msgstr ""
+
+#: src/Design.php:321
+msgid "Kompakt – Kopfzeile und Sidebar"
+msgstr ""
+
+#: src/Frontend/Renderer.php:72
+msgid "b83 Wetter: Bitte zuerst unter b83 → Wetter einen Standort eintragen."
+msgstr ""
+
+#: src/Frontend/Renderer.php:73
+msgid "b83 Wetter: Noch keine aktuellen Wetterdaten – bitte unter b83 → Wetter → Status „Jetzt aktualisieren“ wählen."
+msgstr ""
+
+#. translators: 1: Ort, 2: Wetterlage, 3: Temperatur
+#: src/Frontend/Renderer.php:141
+#, php-format
+msgid "Wetter %1$s: %2$s, %3$s"
+msgstr ""
+
+#: src/Frontend/Renderer.php:194
+#: src/Frontend/Renderer.php:241
+#: src/Frontend/Renderer.php:330
+msgid "Höchstwert"
+msgstr ""
+
+#: src/Frontend/Renderer.php:196
+#: src/Frontend/Renderer.php:242
+#: src/Frontend/Renderer.php:331
+msgid "Tiefstwert"
+msgstr ""
+
+#: src/Frontend/Renderer.php:251
+msgid "Zur Wettervorhersage"
+msgstr ""
+
+#: src/Frontend/Renderer.php:269
+msgctxt "Datumsformat Wetterseite"
+msgid "l, j. F"
+msgstr ""
+
+#. translators: 1: Höchstwert, 2: Tiefstwert
+#: src/Frontend/Renderer.php:282
+#, php-format
+msgid "Heute %1$s / %2$s"
+msgstr ""
+
+#. translators: %s: Himmelsrichtung, z. B. NW
+#: src/Frontend/Renderer.php:295
+#, php-format
+msgid "aus %s"
+msgstr ""
+
+#: src/Frontend/Renderer.php:297
+#: src/Frontend/Renderer.php:335
+msgid "Wind"
+msgstr ""
+
+#: src/Frontend/Renderer.php:300
+msgid "Böen"
+msgstr ""
+
+#: src/Frontend/Renderer.php:303
+msgid "Luftfeuchte"
+msgstr ""
+
+#: src/Frontend/Renderer.php:306
+msgid "Niederschlag heute"
+msgstr ""
+
+#: src/Frontend/Renderer.php:309
+msgid "Schneefallgrenze"
+msgstr ""
+
+#. translators: 1: Quellen, 2: Lizenz
+#: src/Frontend/Renderer.php:365
+#, php-format
+msgid "Wetterdaten: %1$s (%2$s), aufbereitet"
+msgstr ""
+
+#. translators: %s: Uhrzeit
+#: src/Frontend/Renderer.php:371
+#, php-format
+msgid "Stand %s Uhr"
+msgstr ""
+
+#. translators: %s: Uhrzeit
+#: src/Frontend/Renderer.php:371
+msgctxt "Uhrzeit Datenstand"
+msgid "H:i"
+msgstr ""
+
+#. translators: %s: Quellen
+#: src/Frontend/Renderer.php:390
+#, php-format
+msgid "Wetterdaten: %s (CC BY 4.0), aufbereitet"
+msgstr ""
+
+#: src/Frontend/Renderer.php:505
+msgid "Heute"
+msgstr ""
+
+#: src/Frontend/Renderer.php:508
+msgid "Morgen"
+msgstr ""
+
+#: src/Frontend/Renderer.php:516
+msgctxt "Datumsformat Tageskarte"
+msgid "j.n."
+msgstr ""
+
+#: src/Icons.php:32
+msgid "Farbig"
+msgstr ""
+
+#: src/Icons.php:33
+msgid "Linie (einfarbig, passt sich der Textfarbe an)"
+msgstr ""
+
+#: src/Icons.php:34
+msgid "Duoton (Textfarbe + Akzentfarbe)"
+msgstr ""
+
+#: src/Icons.php:35
+msgid "Flach (farbig, ohne Konturen)"
+msgstr ""
+
+#: src/Integrations/ElementorWidget.php:77
+msgid "Klein (einzeilig)"
+msgstr ""
+
+#: src/Integrations/ElementorWidget.php:91
+#: src/Integrations/ElementorWidget.php:118
+#: src/Integrations/ElementorWidget.php:148
+msgid "Wie im Backend"
+msgstr ""
+
+#: src/Integrations/ElementorWidget.php:94
+msgid "Icon + Temperatur + Höchst-/Tiefstwert"
+msgstr ""
+
+#: src/Integrations/ElementorWidget.php:104
+msgid "Tage"
+msgstr ""
+
+#: src/Integrations/ElementorWidget.php:108
+#: src/Integrations/ElementorWidget.php:178
+msgid "Leer = wie im Backend."
+msgstr ""
+
+#: src/Integrations/ElementorWidget.php:116
+msgid "Ortsname"
+msgstr ""
+
+#: src/Integrations/ElementorWidget.php:125
+msgid "Link"
+msgstr ""
+
+#: src/Integrations/ElementorWidget.php:127
+msgid "Leer = Wetterseite aus dem Backend, „none“ = kein Link"
+msgstr ""
+
+#: src/Integrations/ElementorWidget.php:137
+msgid "Gestaltung"
+msgstr ""
+
+#. translators: %d: Minuten
+#: src/Scheduler.php:45
+#, php-format
+msgid "b83 Wetter: alle %d Minuten"
+msgstr ""
+
+#: src/Updater.php:188
+msgid "Wettervorhersage aus den offenen Daten von GeoSphere Austria, ergänzt durch MET Norway. Den Abruf erledigt der Server, Besucher verbinden sich nie mit einem Wetterdienst und werden nicht getrackt."
+msgstr ""
+
+#: src/Updater.php:189
+msgid "Klein passt die Anzeige neben die Navigation, kompakt in Kopfzeile oder Sidebar, ausführlich auf eine eigene Wetterseite mit bis zu sieben Tagen."
+msgstr ""
+
+#: src/Updater.php:191
+msgid "Vier Icon-Sets"
+msgstr ""
+
+#: src/Updater.php:192
+msgid "Farben und Größen je Darstellung, mit Live-Vorschau"
+msgstr ""
+
+#: src/Updater.php:193
+msgid "Einbindung per Shortcode oder Elementor-Widget"
+msgstr ""
+
+#: src/Updater.php:194
+msgid "Ein fester Standort, Seehöhe optional"
+msgstr ""
+
+#: src/Updater.php:196
+msgid "Ein Plugin von b83 – Strategisches Online Marketing."
+msgstr ""
+
+#: src/Updater.php:234
+msgid "Update-Download: keine Weiterleitung erhalten."
+msgstr ""
+
+#. translators: %d: HTTP-Statuscode
+#: src/Updater.php:252
+#, php-format
+msgid "Update-Download fehlgeschlagen (HTTP %d). Ist B83_GITHUB_TOKEN gültig?"
+msgstr ""
+
+#: src/Updater.php:280
+msgid "Update: Plugin-Ordner konnte nicht umbenannt werden."
+msgstr ""

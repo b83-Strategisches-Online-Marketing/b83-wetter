@@ -18,9 +18,11 @@
 	function refresh( el ) {
 		var view = el.getAttribute( 'data-b83w-view' ) || 'kompakt';
 		var args = el.getAttribute( 'data-b83w-args' ) || '';
-		var key = view + '|' + args;
+		var lang = el.getAttribute( 'data-b83w-lang' ) || '';
+		var key = view + '|' + args + '|' + lang;
 		var url = cfg.endpoint + ( cfg.endpoint.indexOf( '?' ) === -1 ? '?' : '&' ) +
-			'view=' + encodeURIComponent( view ) + '&args=' + encodeURIComponent( args );
+			'view=' + encodeURIComponent( view ) + '&args=' + encodeURIComponent( args ) +
+			( lang ? '&lang=' + encodeURIComponent( lang ) : '' );
 
 		if ( ! pending[ key ] ) {
 			pending[ key ] = window.fetch( url, { credentials: 'omit' } ).then( function ( res ) {
