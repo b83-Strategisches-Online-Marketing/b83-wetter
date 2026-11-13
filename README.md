@@ -13,7 +13,7 @@ Ein Plugin von [b83 – Strategisches Online Marketing](https://b83.at).
 - **Ausführlich** – Wetterseite mit Details (Wind, Böen, Luftfeuchte, Niederschlag, Schneefallgrenze) und bis zu 7 Tagen
 - Vier Icon-Sets: farbig, Linie, Duoton, flach
 - Farben (Vordergrund, Nebentext, Hintergrund, Rahmen, Akzent), Schrift- und Icon-Größen je Darstellung – im Backend mit Live-Vorschau, per Shortcode oder im Elementor-Widget
-- Hauptquelle GeoSphere Austria (2,5 km, rund 2,5 Tage), Fallback und Ergänzung weiterer Tage durch MET Norway
+- Hauptquelle GeoSphere Austria (1 km, rund 2,5 Tage), Fallback und Ergänzung weiterer Tage durch MET Norway
 - Abruf nur über den Server (WP-Cron), Besucher verbinden sich nie mit einem Wetterdienst
 
 ## Einrichtung
@@ -66,7 +66,7 @@ Variablen: `--b83w-color`, `--b83w-muted`, `--b83w-bg`, `--b83w-accent`, `--b83w
 
 ## Daten, Lizenz und Datenschutz
 
-- **GeoSphere Austria** – Dataset API, Modell `nwp-v1-1h-2500m`, Lizenz CC BY 4.0
+- **GeoSphere Austria** – Dataset API, Modell `nwp-v2-1h-1km`, Lizenz CC BY 4.0 (bis 1.3.0: `nwp-v1-1h-2500m`, seit 4.11.2026 ohne neue Läufe)
 - **MET Norway** – Locationforecast 2.0, Lizenz NLOD 2.0 / CC BY 4.0; die Bezeichnung „Yr“ und das Yr-Logo werden nicht verwendet
 
 Die Quellenangabe ist Pflicht und wird automatisch ausgegeben (kompakt und ausführlich sichtbar; klein als ©-Link oder über den Link zur Wetterseite). Die Daten werden auf dem Server abgerufen (Standard: stündlich) und gespeichert. Besucher-IP-Adressen werden an keinen Dienst übertragen, es werden keine Cookies gesetzt und keine externen Dateien geladen.

@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.1 – 2026-11-13
+
+### Behoben
+- GeoSphere Austria wurde fast immer übersprungen und MET Norway verwendet: Das bisher abgefragte Modell `nwp-v1-1h-2500m` liefert seit 4.11.2026 keine neuen Läufe mehr. Das Plugin fragt jetzt das Nachfolgemodell `nwp-v2-1h-1km` ab (1 km statt 2,5 km Auflösung).
+
+### Neu
+- Liefert GeoSphere nur veraltete Modellläufe, nennt „Status“ das Datum des letzten Laufs, statt „zu wenige Daten“ zu melden
+
 ## 1.3.0 – 2026-11-13
 
 ### Neu

@@ -1,9 +1,12 @@
 <?php
 /**
- * GeoSphere Austria (ehemals ZAMG), Modell „nwp-v1-1h-2500m“ (AROME, 2,5 km).
+ * GeoSphere Austria (ehemals ZAMG), Modell „nwp-v2-1h-1km“ (1 km).
  *
  * Offene Daten unter CC BY 4.0, ohne Schlüssel. Stündliche Werte für rund
  * 60 Stunden, Gebiet: Alpenraum / Mitteleuropa.
+ *
+ * Das frühere Modell „nwp-v1-1h-2500m“ liefert seit 4.11.2026 keine neuen
+ * Läufe mehr (leere Antworten); seit Version 1.3.1 wird v2 abgefragt.
  * Dokumentation: https://dataset.api.hub.geosphere.at/v1/docs
  *
  * @package B83\Wetter
@@ -19,11 +22,20 @@ defined( 'ABSPATH' ) || exit;
 
 final class GeoSphereSource implements SourceInterface {
 
-	private const ENDPOINT   = 'https://dataset.api.hub.geosphere.at/v1/timeseries/forecast/nwp-v1-1h-2500m';
-	private const PARAMETERS = array( 't2m', 'rr_acc', 'sy', 'tcc', 'u10m', 'v10m', 'ugust', 'vgust', 'rh2m', 'snowlmt' );
+	private const ENDPOINT = 'https://dataset.api.hub.geosphere.at/v1/timeseries/forecast/nwp-v2-1h-1km';
+
+	/**
+	 * Parameter: 2t Temperatur °C, tp Niederschlag in der letzten Stunde (mm),
+	 * sy Wettersymbol, tcc Bewölkung %, 10u/10v Wind m/s, 10fg Böe m/s,
+	 * 2r Luftfeuchte %, snowlmt Schneefallgrenze m.
+	 */
+	private const PARAMETERS = array( '2t', 'tp', 'sy', 'tcc', '10u', '10v', '10fg', '2r', 'snowlmt' );
 
 	/** Gebiet des Modells: Breite min/max, Länge min/max. */
-	private const BBOX = array( 42.99, 51.81, 5.51, 22.09 );
+	private const BBOX = array( 43.01, 51.49, 5.04, 22.56 );
+
+	/** Modelllauf älter als diese Anzahl Stunden = Daten gelten als nicht aktuell. */
+	private const MAX_RUN_AGE = 18;
 
 	public function key(): string {
 		return 'geosphere';
@@ -105,6 +117,19 @@ final class GeoSphereSource implements SourceInterface {
 	public function parse( array $body ): array|\WP_Error {
 		$times  = (array) ( $body['timestamps'] ?? array() );
 		$params = $body['features'][0]['properties']['parameters'] ?? null;
+
+		// Veralteter Modelllauf: GeoSphere antwortet dann mit leeren Zeitreihen.
+		$run = isset( $body['reference_time'] ) ? strtotime( (string) $body['reference_time'] ) : false;
+		if ( false !== $run && $run < time() - self::MAX_RUN_AGE * HOUR_IN_SECONDS ) {
+			return new \WP_Error(
+				'b83_wetter_outdated',
+				sprintf(
+					/* translators: %s: Datum und Uhrzeit des letzten Modelllaufs */
+					__( 'GeoSphere Austria liefert keine aktuellen Vorhersagen (letzter Modelllauf: %s).', 'b83-wetter' ),
+					wp_date( _x( 'j.n.Y, H:i \\U\\h\\r', 'Datumsformat Status', 'b83-wetter' ), $run )
+				)
+			);
+		}
 		if ( empty( $times ) || ! is_array( $params ) ) {
 			return new \WP_Error( 'b83_wetter_format', __( 'GeoSphere Austria: unerwartetes Datenformat.', 'b83-wetter' ) );
 		}
@@ -115,19 +140,17 @@ final class GeoSphereSource implements SourceInterface {
 		};
 		$num = static fn( array $list, int $i ): ?float => isset( $list[ $i ] ) && is_numeric( $list[ $i ] ) ? (float) $list[ $i ] : null;
 
-		$t2m   = $series( 't2m' );
-		$rracc = $series( 'rr_acc' );
-		$sy    = $series( 'sy' );
-		$tcc   = $series( 'tcc' );
-		$u     = $series( 'u10m' );
-		$v     = $series( 'v10m' );
-		$ug    = $series( 'ugust' );
-		$vg    = $series( 'vgust' );
-		$rh    = $series( 'rh2m' );
-		$snow  = $series( 'snowlmt' );
+		$t2m  = $series( '2t' );
+		$tp   = $series( 'tp' );
+		$sy   = $series( 'sy' );
+		$tcc  = $series( 'tcc' );
+		$u    = $series( '10u' );
+		$v    = $series( '10v' );
+		$gust = $series( '10fg' );
+		$rh   = $series( '2r' );
+		$snow = $series( 'snowlmt' );
 
-		$steps    = array();
-		$prev_acc = null;
+		$steps = array();
 		foreach ( array_values( $times ) as $i => $iso ) {
 			$t = strtotime( (string) $iso );
 			if ( false === $t ) {
@@ -138,13 +161,13 @@ final class GeoSphereSource implements SourceInterface {
 				continue;
 			}
 
-			// Niederschlag ist aufsummiert: Differenz zum vorigen Zeitschritt.
-			$acc      = $num( $rracc, $i );
-			$precip   = ( null !== $acc && null !== $prev_acc ) ? max( 0.0, $acc - $prev_acc ) : 0.0;
-			$prev_acc = $acc ?? $prev_acc;
+			// tp zum Zeitpunkt T = Niederschlag der Stunde bis T. Der Zeitschritt beginnt bei T,
+			// daher gehört der Wert des nächsten Zeitpunkts zu ihm.
+			$precip = max( 0.0, $num( $tp, $i + 1 ) ?? 0.0 );
 
+			// Bewölkung kommt in Prozent.
 			$cloud = $num( $tcc, $i );
-			$cloud = null !== $cloud ? max( 0.0, min( 100.0, $cloud <= 1.0 ? $cloud * 100 : $cloud ) ) : null;
+			$cloud = null !== $cloud ? max( 0.0, min( 100.0, $cloud ) ) : null;
 
 			$symbol = $num( $sy, $i );
 			$cond   = null !== $symbol ? Conditions::from_geosphere( (int) round( $symbol ) ) : null;
@@ -152,8 +175,7 @@ final class GeoSphereSource implements SourceInterface {
 
 			$wu = $num( $u, $i );
 			$wv = $num( $v, $i );
-			$gu = $num( $ug, $i );
-			$gv = $num( $vg, $i );
+			$gs = $num( $gust, $i );
 
 			$steps[] = array(
 				't'        => $t,
@@ -163,7 +185,7 @@ final class GeoSphereSource implements SourceInterface {
 				'precip'   => round( $precip, 2 ),
 				'wind'     => ( null !== $wu && null !== $wv ) ? round( sqrt( $wu ** 2 + $wv ** 2 ) * 3.6, 1 ) : null,
 				'dir'      => ( null !== $wu && null !== $wv ) ? (int) round( fmod( rad2deg( atan2( -$wu, -$wv ) ) + 360, 360 ) ) : null,
-				'gust'     => ( null !== $gu && null !== $gv ) ? round( sqrt( $gu ** 2 + $gv ** 2 ) * 3.6, 1 ) : null,
+				'gust'     => null !== $gs ? round( max( 0.0, $gs ) * 3.6, 1 ) : null,
 				'humidity' => null !== $num( $rh, $i ) ? (int) round( (float) $num( $rh, $i ) ) : null,
 				'cloud'    => null !== $cloud ? (int) round( $cloud ) : null,
 				'snowline' => null !== $num( $snow, $i ) ? (int) round( (float) $num( $snow, $i ) ) : null,

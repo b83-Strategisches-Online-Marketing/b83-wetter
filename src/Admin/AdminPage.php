@@ -237,7 +237,7 @@ final class AdminPage {
 		echo '<tr><th scope="row"><label for="b83-wetter-source">' . esc_html__( 'Hauptquelle', 'b83-wetter' ) . '</label></th><td>';
 		echo '<select id="b83-wetter-source" name="settings[source]">';
 		foreach ( array(
-			'geosphere' => __( 'GeoSphere Austria – Österreich und Alpenraum, 2,5 km, rund 2,5 Tage', 'b83-wetter' ),
+			'geosphere' => __( 'GeoSphere Austria – Österreich und Alpenraum, 1 km, rund 2,5 Tage', 'b83-wetter' ),
 			'metno'     => __( 'MET Norway – weltweit, rund 9 Tage', 'b83-wetter' ),
 		) as $key => $label ) {
 			echo '<option value="' . esc_attr( $key ) . '"' . selected( $s['source'], $key, false ) . '>' . esc_html( $label ) . '</option>';

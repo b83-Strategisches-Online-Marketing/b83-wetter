@@ -2,7 +2,7 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: b83 Wetter 1.2.1\n"
+"Project-Id-Version: b83 Wetter 1.3.0\n"
 "Report-Msgid-Bugs-To: office@b83.at\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: b83\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: 2026-11-13T15:59:44+00:00\n"
+"POT-Creation-Date: 2026-11-13T16:09:34+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: b83-wetter\n"
@@ -176,8 +176,8 @@ msgid "Hauptquelle"
 msgstr "Main source"
 
 #: src/Admin/AdminPage.php:240
-msgid "GeoSphere Austria – Österreich und Alpenraum, 2,5 km, rund 2,5 Tage"
-msgstr "GeoSphere Austria – Austria and the Alps, 2.5 km, about 2.5 days"
+msgid "GeoSphere Austria – Österreich und Alpenraum, 1 km, rund 2,5 Tage"
+msgstr "GeoSphere Austria – Austria and the Alps, 1 km, about 2.5 days"
 
 #: src/Admin/AdminPage.php:241
 msgid "MET Norway – weltweit, rund 9 Tage"
@@ -321,6 +321,7 @@ msgid "Kontakt"
 msgstr "Contact"
 
 #: src/Admin/AdminPage.php:464
+#: src/Data/GeoSphereSource.php:129
 msgctxt "Datumsformat Status"
 msgid "j.n.Y, H:i \\U\\h\\r"
 msgstr "j/n/Y, H:i"
@@ -660,21 +661,27 @@ msgstr "Heavy snow"
 msgid "Gewitter"
 msgstr "Thunderstorm"
 
-#: src/Data/GeoSphereSource.php:56
+#: src/Data/GeoSphereSource.php:68
 msgid "Der Standort liegt außerhalb des Gebiets von GeoSphere Austria."
 msgstr "The location is outside the GeoSphere Austria coverage area."
 
 #. translators: %d: HTTP-Statuscode
-#: src/Data/GeoSphereSource.php:92
+#: src/Data/GeoSphereSource.php:104
 #, php-format
 msgid "GeoSphere Austria antwortet mit HTTP %d."
 msgstr "GeoSphere Austria responded with HTTP %d."
 
-#: src/Data/GeoSphereSource.php:109
+#. translators: %s: Datum und Uhrzeit des letzten Modelllaufs
+#: src/Data/GeoSphereSource.php:128
+#, php-format
+msgid "GeoSphere Austria liefert keine aktuellen Vorhersagen (letzter Modelllauf: %s)."
+msgstr "GeoSphere Austria is not providing current forecasts (last model run: %s)."
+
+#: src/Data/GeoSphereSource.php:134
 msgid "GeoSphere Austria: unerwartetes Datenformat."
 msgstr "GeoSphere Austria: unexpected data format."
 
-#: src/Data/GeoSphereSource.php:175
+#: src/Data/GeoSphereSource.php:197
 msgid "GeoSphere Austria: zu wenige Daten erhalten."
 msgstr "GeoSphere Austria: too little data received."
 
