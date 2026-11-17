@@ -10,7 +10,7 @@
 - **Präfix für Funktionen, Optionen, Hooks:** `b83_wetter_` (Namespace: `B83\Wetter`)
 - **Repository:** github.com/b83-Strategisches-Online-Marketing/b83-wetter (öffentlich)
 - **Vertrieb:** intern, Updates über GitHub-Releases (öffentliches Repository)
-- **Im Einsatz auf:** diversen Kundensites, u. a. karkogel.abtenau-info.at (mit WPML, auch /en/)
+- **Im Einsatz auf:** mehrere Kundenseiten
 - **Zweck in einem Satz:** Wettervorhersage aus offenen Daten (GeoSphere Austria, MET Norway) mit drei Darstellungen – klein, kompakt und ausführlich – per Shortcode oder Elementor-Widget.
 
 ## b83-Standards (gelten für alle b83-Plugins)
