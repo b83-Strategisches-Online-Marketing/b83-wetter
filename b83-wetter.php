@@ -6,7 +6,7 @@
  * Version:           1.3.1
  * Requires at least: 6.2
  * Requires PHP:      8.1
- * Author:            Wolfgang Grabs-Schrempf / b83
+ * Author:            b83 – Wolfgang Grabs-Schrempf
  * Author URI:        https://b83.at
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
