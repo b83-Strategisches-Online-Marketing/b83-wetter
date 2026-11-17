@@ -81,8 +81,8 @@ Kontakt in Doku und Support-Texten: office@b83.at
 
 - **Ordner `src/` statt `includes/`:** PSR-4-Autoloader in der Hauptdatei, Unterordner `Admin/`, `Data/`, `Frontend/`, `Integrations/`.
 - **Requires at least: 6.2** (Header) statt 6.0.
-- **Author-Zeile:** `b83 – Wolfgang Grabs-Schrempf` statt `Wolfgang Grabs-Schrempf / b83`.
-- **Sprache:** Quellsprache der Oberfläche ist Deutsch, Englisch (en_GB, en_US) als Übersetzung; Kommentare auf Deutsch. Das gilt trotz „Verkaufs-Plugins: Englisch als Quellsprache“, weil das Plugin nicht verkauft wird.
+- **Verkaufskandidat – vor Verkauf Quellsprache auf Englisch umstellen.**
+- **Sprache:** Quellsprache der Oberfläche ist Deutsch, Englisch (en_GB, en_US) als Übersetzung; Kommentare auf Deutsch. Das gilt vorerst trotz „Verkaufs-Plugins: Englisch als Quellsprache“ (siehe nächster Punkt).
 - **Optionen und Bezeichner bleiben unverändert:**
   - Option `b83_wetter_settings`, dazu `b83_wetter_data`, `b83_wetter_status`, `b83_wetter_db_version`
   - Shortcode `[b83_wetter]`, REST-Namespace `b83-wetter/v1`, Admin-Slug `b83-wetter`
