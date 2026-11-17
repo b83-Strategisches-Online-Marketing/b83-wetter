@@ -669,7 +669,15 @@ final class AdminPage {
 		$this->redirect( array( 'tab' => 'status', 'notice' => $ok ? 'refreshed' : 'refresh_error' ) );
 	}
 
+	/** Verwirft Ausgaben anderer Plugins (Notices, Whitespace), damit das JSON gültig bleibt. */
+	private function clean_output(): void {
+		if ( ob_get_level() > 0 && ob_get_length() ) {
+			ob_clean();
+		}
+	}
+
 	public function ajax_preview(): void {
+		$this->clean_output();
 		check_ajax_referer( 'b83_wetter_ajax' );
 		if ( ! current_user_can( self::capability() ) ) {
 			wp_send_json_error( null, 403 );
@@ -682,6 +690,7 @@ final class AdminPage {
 
 	/** Ort suchen über Nominatim (OpenStreetMap) – nur im Backend, über den Server. */
 	public function ajax_geocode(): void {
+		$this->clean_output();
 		check_ajax_referer( 'b83_wetter_ajax' );
 		if ( ! current_user_can( self::capability() ) ) {
 			wp_send_json_error( null, 403 );
