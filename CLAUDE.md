@@ -11,7 +11,7 @@
 - **Repository:** github.com/b83-Strategisches-Online-Marketing/b83-wetter (öffentlich)
 - **Vertrieb:** intern, Updates über GitHub-Releases (öffentliches Repository)
 - **Im Einsatz auf:** mehrere Kundenseiten
-- **Zweck in einem Satz:** Wettervorhersage aus offenen Daten (GeoSphere Austria, MET Norway) mit drei Darstellungen – klein, kompakt und ausführlich – per Shortcode oder Elementor-Widget.
+- **Zweck in einem Satz:** Wettervorhersage aus offenen Daten (GeoSphere Austria, MET Norway) mit vier Darstellungen – klein, kompakt, Symbol und ausführlich – per Shortcode oder Elementor-Widget.
 
 ## b83-Standards (gelten für alle b83-Plugins)
 
@@ -123,14 +123,15 @@ Kontakt in Doku und Support-Texten: office@b83.at
   - Option `b83_wetter_settings`, dazu `b83_wetter_data`, `b83_wetter_status`, `b83_wetter_db_version`
   - Shortcode `[b83_wetter]`, REST-Namespace `b83-wetter/v1`, Admin-Slug `b83-wetter`
   - Cron-Hooks `b83_wetter_refresh` und `b83_wetter_refresh_async`
+  - Shortcode-Attribut `ort` (Alias für den Ortsnamen), deshalb heißt das Attribut für weitere Orte `standort`
 - **REST-Route:** `permission_callback` ist `__return_true`, weil sie öffentliche Wetterdaten liefert.
 - **`class_exists`:** nur für `\Elementor\...` (optionale Integration), keine Guards für eigene Klassen.
 - **Verkaufskandidat:** Bis dahin Oberfläche und Kommentare Deutsch, Englisch (en_US, en_GB) über `languages/`. Vor einem Verkauf auf Englisch umstellen. Einschränkung für den Verkauf: GeoSphere deckt nur Österreich und den Alpenraum ab.
 
 ### Entscheidungen
 - Datenquellen: GeoSphere Austria als Hauptquelle, MET Norway als Fallback und für Tage nach rund 2,5 Tagen, beide CC BY 4.0 mit Pflicht zur Quellenangabe. Open-Meteo verworfen, weil der Gratis-Tarif nicht kommerziell genutzt werden darf.
-- Bewusst nur ein fester Standort. Die Stundenansicht kommt später.
-- Drei Darstellungen nach Wolfgangs Wunsch: klein (einzeilig neben der Navigation), kompakt (Kopfzeile, Sidebar), ausführlich (Wetterseite), jeweils frei in Farben und Schriftgrößen.
+- Ein Hauptort (die bisherigen Einstellungen) plus bis zu 4 weitere Orte (seit 1.4.0). Shortcode-Attribut `standort="kennung"`; `ort` bleibt der Alias für den Ortsnamen (`titel`). Ohne `standort` gilt der Hauptort. Quelle, Fallback, Intervall und Design gelten für alle Orte. Daten der weiteren Orte liegen in `b83_wetter_data_extra`, ihr Status unter `extra` in `b83_wetter_status`. Die Stundenansicht kommt später.
+- Vier Darstellungen nach Wolfgangs Wunsch: klein (einzeilig neben der Navigation), kompakt (Kopfzeile, Sidebar), Symbol (großes Icon mit Temperatur, Wetterlage darunter), ausführlich (Wetterseite), jeweils frei in Farben und Schriftgrößen.
 - Mehrsprachigkeit: WPML übersetzt keine Plugin-Texte. Deshalb liegen en_US und en_GB bei, das Widget folgt der Sprache der Seite (auch beim Nachladen über REST). Der Ortsname lässt sich in WPML → String-Übersetzung übersetzen. Nach einem Update den Seiten-Cache leeren.
 
 ### Bekannte Probleme
