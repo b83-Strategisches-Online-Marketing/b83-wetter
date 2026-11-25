@@ -160,6 +160,7 @@ final class Sanitizer {
 		$value = is_scalar( $value ) ? strtolower( trim( (string) $value ) ) : '';
 		return match ( $value ) {
 			'klein', 'small', 'inline', 'mini', 'einzeilig' => 'klein',
+			'symbol', 'icon', 'zentriert' => 'symbol',
 			'ausfuehrlich', 'ausführlich', 'detail', 'details', 'gross', 'groß', 'large', 'full' => 'ausfuehrlich',
 			default => 'kompakt',
 		};

@@ -76,6 +76,7 @@ final class ElementorWidget extends Widget_Base {
 				'options' => array(
 					'klein'        => __( 'Klein (einzeilig)', 'b83-wetter' ),
 					'kompakt'      => __( 'Kompakt', 'b83-wetter' ),
+					'symbol'       => __( 'Symbol (Icon, Temperatur, Wetterlage)', 'b83-wetter' ),
 					'ausfuehrlich' => __( 'Ausführlich', 'b83-wetter' ),
 				),
 			)
@@ -106,7 +107,7 @@ final class ElementorWidget extends Widget_Base {
 				'min'         => 0,
 				'max'         => 7,
 				'description' => __( 'Leer = wie im Backend.', 'b83-wetter' ),
-				'condition'   => array( 'ansicht!' => 'klein' ),
+				'condition'   => array( 'ansicht' => array( 'kompakt', 'ausfuehrlich' ) ),
 			)
 		);
 

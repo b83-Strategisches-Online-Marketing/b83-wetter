@@ -2,7 +2,7 @@
 
 # b83 Wetter
 
-Wettervorhersage für WordPress aus offenen Daten von **GeoSphere Austria** und **MET Norway** – mit drei Darstellungen, frei gestaltbar, ohne Tracking.
+Wettervorhersage für WordPress aus offenen Daten von **GeoSphere Austria** und **MET Norway** – mit vier Darstellungen, frei gestaltbar, ohne Tracking.
 
 Ein Plugin von [b83 – Strategisches Online Marketing](https://b83.at).
 
@@ -10,6 +10,7 @@ Ein Plugin von [b83 – Strategisches Online Marketing](https://b83.at).
 
 - **Klein** – einzeilig (Icon + Temperatur), passt neben die Navigation
 - **Kompakt** – aktuelles Wetter und die nächsten Tage, für Kopfzeile und Sidebar
+- **Symbol** – großes Icon mit Temperatur, Wetterlage darunter; zentriert, links oder rechts ausgerichtet, Wetterlage und Ortsname ein- oder ausblendbar
 - **Ausführlich** – Wetterseite mit Details (Wind, Böen, Luftfeuchte, Niederschlag, Schneefallgrenze) und bis zu 7 Tagen
 - Vier Icon-Sets: farbig, Linie, Duoton, flach
 - Farben (Vordergrund, Nebentext, Hintergrund, Rahmen, Akzent), Schrift- und Icon-Größen je Darstellung – im Backend mit Live-Vorschau, per Shortcode oder im Elementor-Widget
@@ -22,7 +23,7 @@ Ein Plugin von [b83 – Strategisches Online Marketing](https://b83.at).
 2. **b83 → Wetter → Standort und Daten**: Ort suchen oder Breite/Länge eintragen, Seehöhe optional, speichern
 3. **Design**: Icon-Set, Farben und Größen festlegen
 4. Shortcode oder Elementor-Widget „b83 Wetter“ einbinden
-5. Optional: Wetterseite auswählen – klein und kompakt verlinken dann dorthin
+5. Optional: Wetterseite auswählen – klein, kompakt und Symbol verlinken dann dorthin
 
 ## Shortcode
 
@@ -31,12 +32,14 @@ Ein Plugin von [b83 – Strategisches Online Marketing](https://b83.at).
 [b83_wetter ansicht="klein" farbe="#ffffff" schrift="14" inhalt="minmax"]
 [b83_wetter]
 [b83_wetter ansicht="kompakt" tage="0"]
+[b83_wetter ansicht="symbol"]
+[b83_wetter ansicht="symbol" symbol_align="left" symbol_place="1"]
 [b83_wetter ansicht="ausfuehrlich" tage="5" iconset="linie"]
 ```
 
 | Attribut | Bedeutung | Werte |
 | --- | --- | --- |
-| `ansicht` | Darstellung | `klein`, `kompakt` (Standard), `ausfuehrlich` |
+| `ansicht` | Darstellung | `klein`, `kompakt` (Standard), `symbol`, `ausfuehrlich` |
 | `farbe` | Textfarbe | `#ffffff`, `rgba(…)`, `inherit` |
 | `hintergrund` | Hintergrund | `#0b3954`, `transparent` |
 | `schrift` | Schriftgröße (px) | 10–40 |
@@ -48,7 +51,7 @@ Ein Plugin von [b83 – Strategisches Online Marketing](https://b83.at).
 | `iconset` | Icon-Set | `farbig`, `linie`, `duoton`, `flach` |
 | `akzent` | Akzentfarbe | Farbe |
 | `titel` | Ortsname überschreiben | Text |
-| `link` | Link (klein, kompakt) | URL, Seiten-ID oder `none` |
+| `link` | Link (klein, kompakt, Symbol) | URL, Seiten-ID oder `none` |
 | `class` | Eigene CSS-Klasse | Text |
 
 Zusätzlich lassen sich alle Design-Felder mit ihrem Schlüssel setzen, z. B. `small_content="minmax"` oder `detail_card_bg="#ffffff"` (Liste in `src/Design.php`). Fehlt ein Attribut, gilt der Wert aus dem Backend.
@@ -69,7 +72,7 @@ Variablen: `--b83w-color`, `--b83w-muted`, `--b83w-bg`, `--b83w-accent`, `--b83w
 - **GeoSphere Austria** – Dataset API, Modell `nwp-v2-1h-1km`, Lizenz CC BY 4.0 (bis 1.3.0: `nwp-v1-1h-2500m`, seit 4.11.2026 ohne neue Läufe)
 - **MET Norway** – Locationforecast 2.0, Lizenz NLOD 2.0 / CC BY 4.0; die Bezeichnung „Yr“ und das Yr-Logo werden nicht verwendet
 
-Die Quellenangabe ist Pflicht und wird automatisch ausgegeben (kompakt und ausführlich sichtbar; klein als ©-Link oder über den Link zur Wetterseite). Die Daten werden auf dem Server abgerufen (Standard: stündlich) und gespeichert. Besucher-IP-Adressen werden an keinen Dienst übertragen, es werden keine Cookies gesetzt und keine externen Dateien geladen.
+Die Quellenangabe ist Pflicht und wird automatisch ausgegeben (kompakt und ausführlich sichtbar; klein und Symbol als ©-Link oder über den Link zur Wetterseite). Die Daten werden auf dem Server abgerufen (Standard: stündlich) und gespeichert. Besucher-IP-Adressen werden an keinen Dienst übertragen, es werden keine Cookies gesetzt und keine externen Dateien geladen.
 
 Liegt eine Seite länger im Seiten-Cache als das Aktualisierungsintervall, holt sich das Widget aktuelle Werte über den REST-Endpunkt der eigenen Website (`/wp-json/b83-wetter/v1/widget`).
 

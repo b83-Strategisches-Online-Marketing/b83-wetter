@@ -23,6 +23,7 @@ final class Design {
 	public const VIEWS = array(
 		'klein'       => 'small',
 		'kompakt'     => 'compact',
+		'symbol'      => 'symbol',
 		'ausfuehrlich' => 'detail',
 	);
 
@@ -234,6 +235,79 @@ final class Design {
 				'default' => 16,
 			),
 
+			/* Symbol – Icon und Temperatur, Wetterlage darunter */
+			'symbol_cond'      => array(
+				'group'   => 'symbol',
+				'type'    => 'bool',
+				'label'   => __( 'Wetterlage unter dem Icon anzeigen', 'b83-wetter' ),
+				'default' => '1',
+			),
+			'symbol_place'     => array(
+				'group'   => 'symbol',
+				'type'    => 'bool',
+				'label'   => __( 'Ortsnamen anzeigen', 'b83-wetter' ),
+				'default' => '0',
+			),
+			'symbol_align'     => array(
+				'group'   => 'symbol',
+				'type'    => 'enum',
+				'label'   => __( 'Ausrichtung', 'b83-wetter' ),
+				'options' => array(
+					'center' => __( 'Zentriert', 'b83-wetter' ),
+					'left'   => __( 'Links', 'b83-wetter' ),
+					'right'  => __( 'Rechts', 'b83-wetter' ),
+				),
+				'default' => 'center',
+			),
+			'symbol_font_size' => array(
+				'group'   => 'symbol',
+				'type'    => 'int',
+				'label'   => __( 'Schriftgröße Wetterlage (px)', 'b83-wetter' ),
+				'min'     => 10,
+				'max'     => 60,
+				'default' => 24,
+			),
+			'symbol_temp_size' => array(
+				'group'   => 'symbol',
+				'type'    => 'int',
+				'label'   => __( 'Schriftgröße Temperatur (px)', 'b83-wetter' ),
+				'min'     => 14,
+				'max'     => 120,
+				'default' => 56,
+			),
+			'symbol_icon_size' => array(
+				'group'   => 'symbol',
+				'type'    => 'int',
+				'label'   => __( 'Icon-Größe (px)', 'b83-wetter' ),
+				'min'     => 20,
+				'max'     => 200,
+				'default' => 64,
+			),
+			'symbol_color'     => array(
+				'group'   => 'symbol',
+				'type'    => 'color',
+				'empty'   => true,
+				'label'   => __( 'Textfarbe', 'b83-wetter' ),
+				'help'    => __( 'Leer = allgemeine Textfarbe.', 'b83-wetter' ),
+				'default' => '',
+			),
+			'symbol_bg'        => array(
+				'group'   => 'symbol',
+				'type'    => 'color',
+				'empty'   => true,
+				'label'   => __( 'Hintergrund', 'b83-wetter' ),
+				'help'    => __( 'Leer = allgemeiner Hintergrund.', 'b83-wetter' ),
+				'default' => '',
+			),
+			'symbol_padding'   => array(
+				'group'   => 'symbol',
+				'type'    => 'int',
+				'label'   => __( 'Innenabstand (px)', 'b83-wetter' ),
+				'min'     => 0,
+				'max'     => 60,
+				'default' => 0,
+			),
+
 			/* Ausführlich – Wetterseite */
 			'detail_days'      => array(
 				'group'   => 'detail',
@@ -319,6 +393,7 @@ final class Design {
 			'general' => __( 'Allgemein (alle Darstellungen)', 'b83-wetter' ),
 			'small'   => __( 'Klein – einzeilig, z. B. neben der Navigation', 'b83-wetter' ),
 			'compact' => __( 'Kompakt – Kopfzeile und Sidebar', 'b83-wetter' ),
+			'symbol'  => __( 'Symbol – großes Icon mit Temperatur und Wetterlage', 'b83-wetter' ),
 			'detail'  => __( 'Ausführlich – Wetterseite', 'b83-wetter' ),
 		);
 	}

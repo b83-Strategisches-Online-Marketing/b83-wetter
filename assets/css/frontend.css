@@ -127,6 +127,28 @@ a.b83-wetter--klein:focus-visible .b83-wetter__temp { text-decoration: underline
 .b83-wetter--klein .b83-wetter__credit { font-size: .6em; text-decoration: none; align-self: flex-start; margin-left: -.15em; }
 
 /* ------------------------------------------------------------------
+ * Symbol – Icon und Temperatur, Wetterlage darunter
+ * ---------------------------------------------------------------- */
+
+.b83-wetter--symbol {
+	display: flex;
+	flex-direction: column;
+	align-items: var(--b83w-align, center);
+	gap: .35em;
+	max-width: 100%;
+	text-align: var(--b83w-text-align, center);
+	text-decoration: none;
+	position: relative;
+}
+.b83-wetter--symbol .b83-wetter__now { display: flex; align-items: center; gap: .2em; }
+.b83-wetter--symbol .b83-wetter__temp { font-size: var(--b83w-temp, 3.5em); }
+.b83-wetter--symbol .b83-wetter__cond { font-size: 1em; line-height: 1.25; }
+.b83-wetter--symbol .b83-wetter__place { font-size: .8em; }
+.b83-wetter--symbol .b83-wetter__credit { position: absolute; right: .3em; bottom: .1em; font-size: .6em; text-decoration: none; }
+a.b83-wetter--symbol:hover .b83-wetter__cond,
+a.b83-wetter--symbol:focus-visible .b83-wetter__cond { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ------------------------------------------------------------------
  * Kompakt – Kopfzeile, Sidebar
  * ---------------------------------------------------------------- */
 

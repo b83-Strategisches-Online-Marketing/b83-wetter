@@ -361,6 +361,7 @@ final class AdminPage {
 		foreach ( array(
 			'klein'        => __( 'Klein', 'b83-wetter' ),
 			'kompakt'      => __( 'Kompakt', 'b83-wetter' ),
+			'symbol'       => __( 'Symbol', 'b83-wetter' ),
 			'ausfuehrlich' => __( 'Ausführlich', 'b83-wetter' ),
 		) as $view => $label ) {
 			$html .= '<div class="b83-wetter-preview__item b83-wetter-preview__item--' . esc_attr( $view ) . '">';
@@ -543,6 +544,7 @@ final class AdminPage {
 			'[b83_wetter ansicht="klein" inhalt="minmax"]'                  => __( 'Mit Höchst- und Tiefstwert von heute', 'b83-wetter' ),
 			'[b83_wetter]'                                                  => __( 'Kompakt (Standard) – Kopfzeile, Sidebar', 'b83-wetter' ),
 			'[b83_wetter ansicht="kompakt" tage="0"]'                       => __( 'Kompakt, nur aktuelles Wetter', 'b83-wetter' ),
+			'[b83_wetter ansicht="symbol"]'                                 => __( 'Großes Icon mit Temperatur, Wetterlage darunter', 'b83-wetter' ),
 			'[b83_wetter ansicht="ausfuehrlich"]'                           => __( 'Ausführlich – Wetterseite', 'b83-wetter' ),
 			'[b83_wetter ansicht="ausfuehrlich" tage="5" iconset="linie"]'  => __( 'Ausführlich mit 5 Tagen und Linien-Icons', 'b83-wetter' ),
 		);
@@ -554,7 +556,7 @@ final class AdminPage {
 
 		echo '<h2>' . esc_html__( 'Attribute', 'b83-wetter' ) . '</h2>';
 		$attrs = array(
-			array( 'ansicht', __( 'Darstellung', 'b83-wetter' ), 'klein, kompakt, ausfuehrlich' ),
+			array( 'ansicht', __( 'Darstellung', 'b83-wetter' ), 'klein, kompakt, symbol, ausfuehrlich' ),
 			array( 'farbe', __( 'Textfarbe', 'b83-wetter' ), '#ffffff, rgba(…), inherit' ),
 			array( 'hintergrund', __( 'Hintergrund', 'b83-wetter' ), '#0b3954, transparent' ),
 			array( 'schrift', __( 'Schriftgröße in px', 'b83-wetter' ), '10–40' ),

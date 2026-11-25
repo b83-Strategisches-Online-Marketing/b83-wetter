@@ -87,6 +87,7 @@ final class Renderer {
 
 		$inner = match ( $view ) {
 			'klein'        => $this->small( $ctx ),
+			'symbol'       => $this->symbol( $ctx ),
 			'ausfuehrlich' => $this->detail( $ctx ),
 			default        => $this->compact( $ctx ),
 		};
@@ -119,7 +120,7 @@ final class Renderer {
 		);
 		$max_age = (int) $settings['interval'] * MINUTE_IN_SECONDS + 10 * MINUTE_IN_SECONDS;
 
-		$tag   = 'klein' === $view ? ( '' !== $link ? 'a' : 'span' ) : 'div';
+		$tag   = in_array( $view, array( 'klein', 'symbol' ), true ) ? ( '' !== $link ? 'a' : ( 'klein' === $view ? 'span' : 'div' ) ) : 'div';
 		$attrs = array(
 			'class'           => implode( ' ', $classes ),
 			'style'           => $this->style_vars( $view, $design ),
@@ -134,7 +135,7 @@ final class Renderer {
 		if ( 'a' === $tag ) {
 			$attrs['href'] = $link;
 		}
-		if ( 'klein' === $view ) {
+		if ( in_array( $view, array( 'klein', 'symbol' ), true ) ) {
 			$current        = $forecast->current();
 			$attrs['title'] = sprintf(
 				/* translators: 1: Ort, 2: Wetterlage, 3: Temperatur */
@@ -201,6 +202,35 @@ final class Renderer {
 			$out .= '<span class="b83-wetter__sr">' . esc_html( $label ) . '</span>';
 		}
 
+		// Quellenangabe: mit Link zur Wetterseite steht sie dort, sonst als kleines Zeichen.
+		if ( '' === $ctx['link'] ) {
+			$out .= $this->credit_mini( $forecast );
+		}
+		return $out;
+	}
+
+	/** @param array<string,mixed> $ctx Kontext. */
+	private function symbol( array $ctx ): string {
+		/** @var Forecast $forecast */
+		$forecast = $ctx['forecast'];
+		$now      = $forecast->current();
+		$design   = $ctx['design'];
+		$night    = (bool) $now['night'];
+		$label    = Conditions::label( (string) $now['cond'], $night );
+		$show     = '1' === $design['symbol_cond'];
+
+		$out  = '<div class="b83-wetter__now">';
+		$out .= Icons::svg( (string) $now['cond'], $night );
+		$out .= '<span class="b83-wetter__temp">' . esc_html( $this->temp( (float) $now['temp'] ) ) . '</span>';
+		$out .= '</div>';
+		if ( $show ) {
+			$out .= '<div class="b83-wetter__cond">' . esc_html( $label ) . '</div>';
+		} else {
+			$out .= '<span class="b83-wetter__sr">' . esc_html( $label ) . '</span>';
+		}
+		if ( '1' === $design['symbol_place'] && '' !== $ctx['title'] ) {
+			$out .= '<div class="b83-wetter__place b83-wetter__muted">' . esc_html( $ctx['title'] ) . '</div>';
+		}
 		// Quellenangabe: mit Link zur Wetterseite steht sie dort, sonst als kleines Zeichen.
 		if ( '' === $ctx['link'] ) {
 			$out .= $this->credit_mini( $forecast );
@@ -459,6 +489,14 @@ final class Renderer {
 		$vars['--b83w-pad']    = (int) $d[ $p . '_padding' ] . 'px';
 		if ( isset( $d[ $p . '_temp_size' ] ) ) {
 			$vars['--b83w-temp'] = (int) $d[ $p . '_temp_size' ] . 'px';
+		}
+		if ( 'symbol' === $view ) {
+			$vars['--b83w-align'] = match ( (string) $d['symbol_align'] ) {
+				'left'  => 'flex-start',
+				'right' => 'flex-end',
+				default => 'center',
+			};
+			$vars['--b83w-text-align'] = in_array( (string) $d['symbol_align'], array( 'left', 'right' ), true ) ? (string) $d['symbol_align'] : 'center';
 		}
 		if ( 'ausfuehrlich' === $view ) {
 			$vars['--b83w-day-icon'] = (int) $d['detail_day_icon'] . 'px';

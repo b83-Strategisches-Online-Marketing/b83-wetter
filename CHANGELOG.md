@@ -1,5 +1,10 @@
 # Changelog
 
+## Unveröffentlicht
+
+### Neu
+- Darstellung „Symbol“: großes Icon mit Temperatur, Wetterlage darunter. Shortcode `ansicht="symbol"`, Elementor-Widget und Backend-Vorschau. Einstellbar sind Farben, Schriftgrößen, Icon-Größe, Innenabstand, Ausrichtung, Wetterlage und Ortsname.
+
 ## 1.3.1 – 2026-11-13
 
 ### Behoben

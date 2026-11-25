@@ -1076,3 +1076,47 @@ msgstr "Update download failed (HTTP %d). Is B83_GITHUB_TOKEN valid?"
 #: src/Updater.php:280
 msgid "Update: Plugin-Ordner konnte nicht umbenannt werden."
 msgstr "Update: the plugin folder could not be renamed."
+
+#: src/Design.php:125
+msgid "Wetterlage unter dem Icon anzeigen"
+msgstr "Show weather condition below the icon"
+
+#: src/Design.php:132
+msgid "Ortsnamen anzeigen"
+msgstr "Show place name"
+
+#: src/Design.php:139
+msgid "Ausrichtung"
+msgstr "Alignment"
+
+#: src/Design.php:142
+msgid "Zentriert"
+msgstr "Centered"
+
+#: src/Design.php:143
+msgid "Links"
+msgstr "Left"
+
+#: src/Design.php:144
+msgid "Rechts"
+msgstr "Right"
+
+#: src/Design.php:151
+msgid "Schriftgröße Wetterlage (px)"
+msgstr "Font size of weather condition (px)"
+
+#: src/Design.php:380
+msgid "Symbol – großes Icon mit Temperatur und Wetterlage"
+msgstr "Symbol – large icon with temperature and condition"
+
+#: src/Admin/AdminPage.php:363
+msgid "Symbol"
+msgstr "Symbol"
+
+#: src/Admin/AdminPage.php:544
+msgid "Großes Icon mit Temperatur, Wetterlage darunter"
+msgstr "Large icon with temperature, condition below"
+
+#: src/Integrations/ElementorWidget.php:79
+msgid "Symbol (Icon, Temperatur, Wetterlage)"
+msgstr "Symbol (icon, temperature, condition)"

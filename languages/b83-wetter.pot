@@ -1074,3 +1074,47 @@ msgstr ""
 #: src/Updater.php:280
 msgid "Update: Plugin-Ordner konnte nicht umbenannt werden."
 msgstr ""
+
+#: src/Design.php:125
+msgid "Wetterlage unter dem Icon anzeigen"
+msgstr ""
+
+#: src/Design.php:132
+msgid "Ortsnamen anzeigen"
+msgstr ""
+
+#: src/Design.php:139
+msgid "Ausrichtung"
+msgstr ""
+
+#: src/Design.php:142
+msgid "Zentriert"
+msgstr ""
+
+#: src/Design.php:143
+msgid "Links"
+msgstr ""
+
+#: src/Design.php:144
+msgid "Rechts"
+msgstr ""
+
+#: src/Design.php:151
+msgid "Schriftgröße Wetterlage (px)"
+msgstr ""
+
+#: src/Design.php:380
+msgid "Symbol – großes Icon mit Temperatur und Wetterlage"
+msgstr ""
+
+#: src/Admin/AdminPage.php:363
+msgid "Symbol"
+msgstr ""
+
+#: src/Admin/AdminPage.php:544
+msgid "Großes Icon mit Temperatur, Wetterlage darunter"
+msgstr ""
+
+#: src/Integrations/ElementorWidget.php:79
+msgid "Symbol (Icon, Temperatur, Wetterlage)"
+msgstr ""
