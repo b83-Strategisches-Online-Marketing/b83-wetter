@@ -1,6 +1,6 @@
 # Changelog
 
-## Unveröffentlicht
+## 1.4.0 – 2026-11-25
 
 ### Neu
 - Mehrere Orte: Neben dem Hauptort lassen sich bis zu 4 weitere Orte eintragen. Einbindung mit `standort="kennung"` im Shortcode oder über die Auswahl im Elementor-Widget. Jeder Ort wird einzeln abgerufen, „Status“ zeigt jeden Ort getrennt. Der bisherige Ort bleibt der Hauptort, bestehende Shortcodes ändern sich nicht.

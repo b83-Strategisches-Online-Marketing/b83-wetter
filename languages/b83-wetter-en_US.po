@@ -31,8 +31,8 @@ msgstr "https://b83.at"
 
 #. Description of the plugin
 #: b83-wetter.php
-msgid "Wettervorhersage aus offenen Daten (GeoSphere Austria, MET Norway) mit drei Darstellungen – klein, kompakt und ausführlich – per Shortcode oder Elementor-Widget."
-msgstr "Weather forecast from open data (GeoSphere Austria, MET Norway) in three layouts – small, compact and detailed – via shortcode or Elementor widget."
+msgid "Wettervorhersage aus offenen Daten (GeoSphere Austria, MET Norway) mit vier Darstellungen – klein, kompakt, Symbol und ausführlich – per Shortcode oder Elementor-Widget, bei Bedarf für mehrere Orte."
+msgstr "Weather forecast from open data (GeoSphere Austria, MET Norway) in four layouts – small, compact, symbol and detailed – via shortcode or Elementor widget, optionally for several locations."
 
 #. Author of the plugin
 #: b83-wetter.php
