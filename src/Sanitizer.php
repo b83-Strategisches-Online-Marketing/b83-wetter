@@ -16,6 +16,9 @@ final class Sanitizer {
 	/** Erlaubte Aktualisierungsintervalle in Minuten. */
 	public const INTERVALS = array( 30, 60, 120, 180 );
 
+	/** Höchstzahl zusätzlicher Orte (neben dem Hauptort). */
+	public const MAX_LOCATIONS = 4;
+
 	/* ---------------------------------------------------------------------
 	 * Einzelwerte
 	 * ------------------------------------------------------------------- */
@@ -147,10 +150,70 @@ final class Sanitizer {
 			'fallback'            => self::bool( $input['fallback'] ?? '1' ) ?? '1',
 			'interval'            => in_array( $interval, self::INTERVALS, true ) ? $interval : 60,
 			'link_page'           => isset( $input['link_page'] ) && is_numeric( $input['link_page'] ) ? max( 0, (int) $input['link_page'] ) : 0,
+			'locations'           => self::locations( $input['locations'] ?? array() ),
 			'design'              => self::design( (array) ( $input['design'] ?? array() ), false ),
 			'purge_cache'         => self::bool( $input['purge_cache'] ?? '1' ) ?? '1',
 			'delete_on_uninstall' => self::bool( $input['delete_on_uninstall'] ?? '0' ) ?? '0',
 		);
+	}
+
+	/**
+	 * Kennung (Slug) eines Zusatzorts: a-z, 0-9 und Bindestrich, höchstens 30 Zeichen.
+	 * Gibt '' zurück, wenn nichts Brauchbares übrig bleibt.
+	 */
+	public static function slug( mixed $value ): string {
+		$value = is_scalar( $value ) ? strtolower( remove_accents( trim( (string) $value ) ) ) : '';
+		$value = trim( (string) preg_replace( '/[^a-z0-9]+/', '-', $value ), '-' );
+		return rtrim( substr( $value, 0, 30 ), '-' );
+	}
+
+	/**
+	 * Zusätzliche Orte prüfen. Unvollständige Zeilen (ohne gültige Koordinaten) entfallen,
+	 * Kennungen werden eindeutig gemacht, „main“ ist reserviert.
+	 *
+	 * @param mixed $input Rohwerte (Liste von Zeilen).
+	 * @return array<int,array{slug:string,name:string,lat:string,lng:string,altitude:string}>
+	 */
+	public static function locations( mixed $input ): array {
+		if ( ! is_array( $input ) ) {
+			return array();
+		}
+		$out  = array();
+		$used = array( Repository::MAIN, 'haupt' );
+		foreach ( $input as $row ) {
+			if ( count( $out ) >= self::MAX_LOCATIONS ) {
+				break;
+			}
+			if ( ! is_array( $row ) ) {
+				continue;
+			}
+			$lat = self::coordinate( $row['lat'] ?? '', 90 );
+			$lng = self::coordinate( $row['lng'] ?? '', 180 );
+			if ( '' === $lat || '' === $lng ) {
+				continue;
+			}
+			$name = self::text( $row['name'] ?? '', 80 );
+			$slug = self::slug( $row['slug'] ?? '' );
+			if ( '' === $slug ) {
+				$slug = self::slug( $name );
+			}
+			if ( '' === $slug ) {
+				$slug = 'ort';
+			}
+			$base = $slug;
+			for ( $i = 2; in_array( $slug, $used, true ); $i++ ) {
+				$slug = substr( $base, 0, 27 ) . '-' . $i;
+			}
+			$used[] = $slug;
+			$out[]  = array(
+				'slug'     => $slug,
+				'name'     => $name,
+				'lat'      => $lat,
+				'lng'      => $lng,
+				'altitude' => self::altitude( $row['altitude'] ?? '' ),
+			);
+		}
+		return $out;
 	}
 
 	/**

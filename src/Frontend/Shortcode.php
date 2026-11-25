@@ -5,10 +5,11 @@
  *   [b83_wetter]                                  kompakt (Standard)
  *   [b83_wetter ansicht="klein"]                  einzeilig, z. B. neben der Navigation
  *   [b83_wetter ansicht="ausfuehrlich" tage="5"]  Wetterseite
+ *   [b83_wetter standort="karkogel"]              zusätzlicher Ort (Kennung aus b83 → Wetter)
  *
  * Kurze Attribute (gelten für die gewählte Darstellung):
  *   farbe, hintergrund, schrift, temperatur, icongroesse, abstand, tage
- * Weitere: iconset, akzent, titel, link (URL, Seiten-ID oder „none“), class
+ * Weitere: standort, iconset, akzent, titel, link (URL, Seiten-ID oder „none“), class
  * Alle Design-Felder lassen sich zusätzlich mit ihrem Schlüssel setzen
  * (z. B. small_content="minmax"), siehe README.
  *
@@ -45,9 +46,10 @@ final class Shortcode {
 			$view,
 			self::overrides( $atts, $view ),
 			array(
-				'class' => Sanitizer::text( $atts['class'] ?? '', 100 ),
-				'link'  => Sanitizer::text( $atts['link'] ?? '', 300 ),
-				'title' => Sanitizer::text( $atts['titel'] ?? $atts['title'] ?? $atts['ort'] ?? '', 80 ),
+				'location' => Sanitizer::slug( $atts['standort'] ?? $atts['location'] ?? '' ),
+				'class'    => Sanitizer::text( $atts['class'] ?? '', 100 ),
+				'link'     => Sanitizer::text( $atts['link'] ?? '', 300 ),
+				'title'    => Sanitizer::text( $atts['titel'] ?? $atts['title'] ?? $atts['ort'] ?? '', 80 ),
 			)
 		);
 	}

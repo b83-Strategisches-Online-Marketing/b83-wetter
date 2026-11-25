@@ -230,6 +230,9 @@ final class AdminPage {
 		echo '<p class="description">' . esc_html__( 'Die Seehöhe hilft MET Norway, die Temperatur für Orte im Gebirge richtig zu berechnen.', 'b83-wetter' ) . '</p>';
 		echo '</div>';
 
+		/* Weitere Orte */
+		$this->render_extra_locations( (array) $s['locations'] );
+
 		/* Datenquelle */
 		echo '<div class="b83-wetter-card"><h2>' . esc_html__( 'Datenquelle', 'b83-wetter' ) . '</h2>';
 		echo '<table class="form-table" role="presentation"><tbody>';
@@ -338,6 +341,45 @@ final class AdminPage {
 		echo '</div></div>';
 
 		echo '</div></form>';
+	}
+
+	/**
+	 * Eingabefelder für weitere Orte. Leere Zeilen werden beim Speichern verworfen.
+	 *
+	 * @param array<int,array<string,string>> $saved Gespeicherte Orte.
+	 */
+	private function render_extra_locations( array $saved ): void {
+		echo '<div class="b83-wetter-card"><h2>' . esc_html__( 'Weitere Orte', 'b83-wetter' ) . '</h2>';
+		echo '<p class="description">' . esc_html(
+			sprintf(
+				/* translators: %d: Höchstzahl */
+				__( 'Bis zu %d weitere Orte, z. B. Tal und Berg. Der Ort oben bleibt der Hauptort. Ein weiterer Ort wird mit dem Shortcode-Attribut standort eingebunden, z. B. [b83_wetter standort="karkogel"]. Quelle, Fallback und Aktualisierung gelten für alle Orte. Zeilen ohne Breite und Länge werden beim Speichern entfernt.', 'b83-wetter' ),
+				Sanitizer::MAX_LOCATIONS
+			)
+		) . '</p>';
+		echo '<input type="hidden" name="b83_wetter_locations_form" value="1">';
+		echo '<table class="widefat striped b83-wetter-locations"><thead><tr>';
+		foreach ( array( __( 'Kennung', 'b83-wetter' ), __( 'Ortsname (Anzeige)', 'b83-wetter' ), __( 'Breite', 'b83-wetter' ), __( 'Länge', 'b83-wetter' ), __( 'Seehöhe in m', 'b83-wetter' ) ) as $th ) {
+			echo '<th scope="col">' . esc_html( $th ) . '</th>';
+		}
+		echo '</tr></thead><tbody>';
+		for ( $i = 0; $i < Sanitizer::MAX_LOCATIONS; $i++ ) {
+			$row = $saved[ $i ] ?? array();
+			echo '<tr>';
+			foreach ( array(
+				'slug'     => array( __( 'Kennung', 'b83-wetter' ), 'karkogel', 30 ),
+				'name'     => array( __( 'Ortsname (Anzeige)', 'b83-wetter' ), 'Karkogel', 80 ),
+				'lat'      => array( __( 'Breite', 'b83-wetter' ), '47.5', 12 ),
+				'lng'      => array( __( 'Länge', 'b83-wetter' ), '13.3', 12 ),
+				'altitude' => array( __( 'Seehöhe in m', 'b83-wetter' ), '1500', 6 ),
+			) as $key => $def ) {
+				echo '<td><input type="text" class="regular-text" style="width:100%" name="settings[locations][' . (int) $i . '][' . esc_attr( $key ) . ']" value="' . esc_attr( (string) ( $row[ $key ] ?? '' ) ) . '" placeholder="' . esc_attr( $def[1] ) . '" maxlength="' . (int) $def[2] . '" aria-label="' . esc_attr( $def[0] ) . '"></td>';
+			}
+			echo '</tr>';
+		}
+		echo '</tbody></table>';
+		echo '<p class="description">' . esc_html__( 'Die Kennung darf nur Kleinbuchstaben, Ziffern und Bindestriche enthalten. Bleibt sie leer, wird sie aus dem Ortsnamen gebildet.', 'b83-wetter' ) . '</p>';
+		echo '</div>';
 	}
 
 	/**
@@ -458,47 +500,64 @@ final class AdminPage {
 	}
 
 	private function render_status(): void {
-		$status   = $this->repository->get_status();
-		$data     = $this->repository->get_data();
-		$forecast = $this->repository->forecast();
-		$location = $this->repository->location();
-		$fmt      = static fn( int $ts ): string => $ts > 0 ? wp_date( _x( 'j.n.Y, H:i \\U\\h\\r', 'Datumsformat Status', 'b83-wetter' ), $ts ) : '–';
+		$forecast  = $this->repository->forecast();
+		$locations = $this->repository->locations();
+		$fmt       = static fn( int $ts ): string => $ts > 0 ? wp_date( _x( 'j.n.Y, H:i \\U\\h\\r', 'Datumsformat Status', 'b83-wetter' ), $ts ) : '–';
 
 		$modes = array(
 			'primary'  => __( 'Hauptquelle', 'b83-wetter' ),
 			'fallback' => __( 'Fallback (Hauptquelle nicht erreichbar)', 'b83-wetter' ),
 			'combined' => __( 'Hauptquelle, weitere Tage ergänzt', 'b83-wetter' ),
 		);
-		$labels = array();
-		foreach ( (array) ( $data['sources'] ?? array() ) as $key ) {
-			$source   = $this->repository->source( (string) $key );
-			$labels[] = null !== $source ? $source->label() : (string) $key;
-		}
-
-		$rows = array(
-			__( 'Standort', 'b83-wetter' )                     => null !== $location ? trim( $location['name'] . ' (' . $location['lat'] . ', ' . $location['lng'] . ( '' !== $location['altitude'] ? ', ' . $location['altitude'] . ' m' : '' ) . ')' ) : __( 'nicht eingetragen', 'b83-wetter' ),
-			__( 'Letzte erfolgreiche Abfrage', 'b83-wetter' )  => $fmt( (int) ( $status['last_success'] ?? 0 ) ),
-			__( 'Letzter Versuch', 'b83-wetter' )              => $fmt( (int) ( $status['last_attempt'] ?? 0 ) ),
-			__( 'Verwendete Daten', 'b83-wetter' )             => empty( $labels ) ? '–' : implode( ' + ', $labels ) . ( isset( $modes[ $data['mode'] ?? '' ] ) ? ' · ' . $modes[ $data['mode'] ] : '' ),
-			__( 'Vorhersage reicht bis', 'b83-wetter' )        => $forecast->is_empty() ? '–' : $fmt( $forecast->coverage_end() ),
-			__( 'Nächste geplante Abfrage', 'b83-wetter' )     => $fmt( (int) wp_next_scheduled( Scheduler::HOOK ) ),
-		);
 
 		echo '<div class="b83-wetter-card"><h2>' . esc_html__( 'Wetterdaten', 'b83-wetter' ) . '</h2>';
-		echo '<table class="widefat striped b83-wetter-status"><tbody>';
-		foreach ( $rows as $label => $value ) {
-			echo '<tr><th scope="row">' . esc_html( $label ) . '</th><td>' . esc_html( $value ) . '</td></tr>';
-		}
-		echo '</tbody></table>';
 
-		$errors = (array) ( $status['errors'] ?? array() );
-		if ( ! empty( $errors ) ) {
-			echo '<div class="notice notice-warning inline"><p><strong>' . esc_html__( 'Meldungen beim letzten Versuch:', 'b83-wetter' ) . '</strong></p><ul>';
-			foreach ( $errors as $key => $message ) {
-				$source = $this->repository->source( (string) $key );
-				echo '<li>' . esc_html( ( null !== $source ? $source->label() . ': ' : '' ) . (string) $message ) . '</li>';
+		// Ohne Standort trotzdem eine Zeile zeigen („nicht eingetragen“).
+		if ( empty( $locations ) ) {
+			$locations = array( Repository::MAIN => null );
+		}
+
+		foreach ( $locations as $slug => $location ) {
+			$slug     = (string) $slug;
+			$main     = $this->repository->is_main( $slug );
+			$status   = $this->repository->get_status( $slug );
+			$data     = $this->repository->get_data( $slug );
+			$loc_fc   = $this->repository->forecast( $slug );
+			$labels   = array();
+			foreach ( (array) ( $data['sources'] ?? array() ) as $key ) {
+				$source   = $this->repository->source( (string) $key );
+				$labels[] = null !== $source ? $source->label() : (string) $key;
 			}
-			echo '</ul></div>';
+
+			$rows = array(
+				__( 'Standort', 'b83-wetter' )                     => null !== $location ? trim( $location['name'] . ' (' . $location['lat'] . ', ' . $location['lng'] . ( '' !== $location['altitude'] ? ', ' . $location['altitude'] . ' m' : '' ) . ')' ) : __( 'nicht eingetragen', 'b83-wetter' ),
+				__( 'Letzte erfolgreiche Abfrage', 'b83-wetter' )  => $fmt( (int) ( $status['last_success'] ?? 0 ) ),
+				__( 'Letzter Versuch', 'b83-wetter' )              => $fmt( (int) ( $status['last_attempt'] ?? 0 ) ),
+				__( 'Verwendete Daten', 'b83-wetter' )             => empty( $labels ) ? '–' : implode( ' + ', $labels ) . ( isset( $modes[ $data['mode'] ?? '' ] ) ? ' · ' . $modes[ $data['mode'] ] : '' ),
+				__( 'Vorhersage reicht bis', 'b83-wetter' )        => $loc_fc->is_empty() ? '–' : $fmt( $loc_fc->coverage_end() ),
+			);
+			if ( $main ) {
+				$rows[ __( 'Nächste geplante Abfrage', 'b83-wetter' ) ] = $fmt( (int) wp_next_scheduled( Scheduler::HOOK ) );
+			}
+
+			if ( count( $locations ) > 1 ) {
+				echo '<h3>' . esc_html( $main ? __( 'Hauptort', 'b83-wetter' ) : sprintf( /* translators: %s: Kennung */ __( 'Weiterer Ort: %s', 'b83-wetter' ), $slug ) ) . '</h3>';
+			}
+			echo '<table class="widefat striped b83-wetter-status"><tbody>';
+			foreach ( $rows as $label => $value ) {
+				echo '<tr><th scope="row">' . esc_html( $label ) . '</th><td>' . esc_html( $value ) . '</td></tr>';
+			}
+			echo '</tbody></table>';
+
+			$errors = (array) ( $status['errors'] ?? array() );
+			if ( ! empty( $errors ) ) {
+				echo '<div class="notice notice-warning inline"><p><strong>' . esc_html__( 'Meldungen beim letzten Versuch:', 'b83-wetter' ) . '</strong></p><ul>';
+				foreach ( $errors as $key => $message ) {
+					$source = $this->repository->source( (string) $key );
+					echo '<li>' . esc_html( ( null !== $source ? $source->label() . ': ' : '' ) . (string) $message ) . '</li>';
+				}
+				echo '</ul></div>';
+			}
 		}
 
 		if ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON ) {
@@ -643,6 +702,12 @@ final class AdminPage {
 		$allowed = array( 'location_name', 'lat', 'lng', 'altitude', 'source', 'fallback', 'interval', 'link_page', 'purge_cache', 'delete_on_uninstall' );
 		$current = $this->repository->get_settings();
 
+		// Zeilen der weiteren Orte: fehlt die Liste im Formular, wurden alle Zeilen geleert.
+		if ( isset( $_POST['b83_wetter_locations_form'] ) ) {
+			$input['locations'] = isset( $input['locations'] ) && is_array( $input['locations'] ) ? $input['locations'] : array();
+			$allowed[]          = 'locations';
+		}
+
 		$this->repository->save_settings( array_merge( $current, array_intersect_key( (array) $input, array_flip( $allowed ) ) ) );
 
 		if ( null === $this->repository->location() ) {
@@ -667,6 +732,9 @@ final class AdminPage {
 	public function handle_refresh(): void {
 		$this->guard( 'b83_wetter_refresh' );
 		delete_transient( 'b83_wetter_lock' );
+		foreach ( array_keys( $this->repository->locations() ) as $slug ) {
+			delete_transient( 'b83_wetter_lock_' . $slug );
+		}
 		$ok = $this->refresher->refresh();
 		$this->redirect( array( 'tab' => 'status', 'notice' => $ok ? 'refreshed' : 'refresh_error' ) );
 	}

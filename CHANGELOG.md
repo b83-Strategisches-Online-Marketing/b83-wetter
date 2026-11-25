@@ -3,6 +3,8 @@
 ## Unveröffentlicht
 
 ### Neu
+- Mehrere Orte: Neben dem Hauptort lassen sich bis zu 4 weitere Orte eintragen. Einbindung mit `standort="kennung"` im Shortcode oder über die Auswahl im Elementor-Widget. Jeder Ort wird einzeln abgerufen, „Status“ zeigt jeden Ort getrennt. Der bisherige Ort bleibt der Hauptort, bestehende Shortcodes ändern sich nicht.
+- Filter `b83_wetter_locations`. Die Action `b83_wetter_data_updated` übergibt zusätzlich die Kennung des Orts.
 - Darstellung „Symbol“: großes Icon mit Temperatur, Wetterlage darunter. Shortcode `ansicht="symbol"`, Elementor-Widget und Backend-Vorschau. Einstellbar sind Farben, Schriftgrößen, Icon-Größe, Innenabstand, Ausrichtung, Wetterlage und Ortsname.
 
 ## 1.3.1 – 2026-11-13

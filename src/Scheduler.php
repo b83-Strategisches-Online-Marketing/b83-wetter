@@ -52,12 +52,12 @@ final class Scheduler {
 	}
 
 	public function ensure_scheduled(): void {
-		if ( null === $this->repository->location() ) {
+		if ( empty( $this->repository->locations() ) ) {
 			return;
 		}
 		if ( ! wp_next_scheduled( self::HOOK ) ) {
 			// Frische Daten: erst nach Ablauf des Intervalls wieder abfragen.
-			$delay = $this->refresher->is_stale() ? MINUTE_IN_SECONDS : max( 30, (int) $this->repository->get_settings()['interval'] ) * MINUTE_IN_SECONDS;
+			$delay = $this->refresher->is_stale_any() ? MINUTE_IN_SECONDS : max( 30, (int) $this->repository->get_settings()['interval'] ) * MINUTE_IN_SECONDS;
 			wp_schedule_event( time() + $delay, self::SCHEDULE, self::HOOK );
 		}
 	}
@@ -69,7 +69,7 @@ final class Scheduler {
 
 	/** Veraltete Daten: einmalige Aktualisierung im Hintergrund einplanen (kein Warten für Besucher). */
 	public function maybe_refresh_in_background(): void {
-		if ( null === $this->repository->location() || ! $this->refresher->is_stale() ) {
+		if ( empty( $this->repository->locations() ) || ! $this->refresher->is_stale_any() ) {
 			return;
 		}
 		if ( ! wp_next_scheduled( self::HOOK_ASYNC ) && ! get_transient( 'b83_wetter_async_planned' ) ) {

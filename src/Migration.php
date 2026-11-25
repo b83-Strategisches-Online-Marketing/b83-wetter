@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 
 final class Migration {
 
-	public const DB_VERSION        = 1;
+	public const DB_VERSION        = 2;
 	public const OPTION_DB_VERSION = 'b83_wetter_db_version';
 
 	public static function on_activation(): void {

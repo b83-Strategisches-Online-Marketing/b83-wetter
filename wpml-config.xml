@@ -3,6 +3,11 @@
 	<admin-texts>
 		<key name="b83_wetter_settings">
 			<key name="location_name" />
+			<key name="locations">
+				<key name="*">
+					<key name="name" />
+				</key>
+			</key>
 		</key>
 	</admin-texts>
 </wpml-config>

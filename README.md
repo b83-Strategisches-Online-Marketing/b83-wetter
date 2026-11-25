@@ -15,6 +15,7 @@ Ein Plugin von [b83 – Strategisches Online Marketing](https://b83.at).
 - Vier Icon-Sets: farbig, Linie, Duoton, flach
 - Farben (Vordergrund, Nebentext, Hintergrund, Rahmen, Akzent), Schrift- und Icon-Größen je Darstellung – im Backend mit Live-Vorschau, per Shortcode oder im Elementor-Widget
 - Hauptquelle GeoSphere Austria (1 km, rund 2,5 Tage), Fallback und Ergänzung weiterer Tage durch MET Norway
+- Bis zu 4 weitere Orte neben dem Hauptort (z. B. Tal und Berg), jeweils mit eigenen Wetterdaten; Auswahl per Shortcode-Attribut `standort` oder im Elementor-Widget
 - Abruf nur über den Server (WP-Cron), Besucher verbinden sich nie mit einem Wetterdienst
 
 ## Einrichtung
@@ -33,6 +34,7 @@ Ein Plugin von [b83 – Strategisches Online Marketing](https://b83.at).
 [b83_wetter]
 [b83_wetter ansicht="kompakt" tage="0"]
 [b83_wetter ansicht="symbol"]
+[b83_wetter ansicht="symbol" standort="karkogel"]
 [b83_wetter ansicht="symbol" symbol_align="left" symbol_place="1"]
 [b83_wetter ansicht="ausfuehrlich" tage="5" iconset="linie"]
 ```
@@ -50,11 +52,22 @@ Ein Plugin von [b83 – Strategisches Online Marketing](https://b83.at).
 | `inhalt` | Inhalt der kleinen Darstellung | `temp`, `temp_cond`, `minmax`, `place` |
 | `iconset` | Icon-Set | `farbig`, `linie`, `duoton`, `flach` |
 | `akzent` | Akzentfarbe | Farbe |
-| `titel` | Ortsname überschreiben | Text |
+| `standort` | Weiterer Ort (Kennung aus b83 → Wetter → Standort und Daten); leer = Hauptort | z. B. `karkogel` |
+| `titel` | Ortsname überschreiben (auch `ort`) | Text |
 | `link` | Link (klein, kompakt, Symbol) | URL, Seiten-ID oder `none` |
 | `class` | Eigene CSS-Klasse | Text |
 
 Zusätzlich lassen sich alle Design-Felder mit ihrem Schlüssel setzen, z. B. `small_content="minmax"` oder `detail_card_bg="#ffffff"` (Liste in `src/Design.php`). Fehlt ein Attribut, gilt der Wert aus dem Backend.
+
+## Mehrere Orte
+
+Der Ort unter **b83 → Wetter → Standort und Daten** ist der Hauptort. Darunter lassen sich bis zu 4 weitere Orte eintragen (Kennung, Ortsname, Breite, Länge, Seehöhe). Ohne Attribut `standort` zeigt jedes Widget den Hauptort, bestehende Shortcodes ändern sich nicht. Quelle, Fallback, Aktualisierungsintervall und Design gelten für alle Orte.
+
+- Jeder Ort wird für sich abgerufen und gespeichert. Fällt ein Ort aus, bleiben die anderen unberührt. Unter „Status“ steht jeder Ort mit eigenem Abruf und eigenen Meldungen.
+- Kennung: nur Kleinbuchstaben, Ziffern und Bindestrich, höchstens 30 Zeichen. Bleibt sie leer, wird sie aus dem Ortsnamen gebildet. `main` und `haupt` sind reserviert.
+- Ein unbekannter `standort` zeigt angemeldeten Redakteuren eine Meldung und Besuchern nichts.
+- Jeder weitere Ort bedeutet bis zu zwei zusätzliche Abfragen je Aktualisierung (Hauptquelle und gegebenenfalls Fallback). Zwischen den Orten wartet das Plugin eine Sekunde.
+- WPML: Die Ortsnamen der weiteren Orte stehen ebenfalls in der String-Übersetzung.
 
 ## CSS
 
@@ -90,9 +103,10 @@ Die Texte im Code sind deutsch. Englisch liegt bei (`languages/`, en_US und en_G
 | --- | --- | --- |
 | `b83_wetter_loaded` | Action | Nach dem Laden des Plugins |
 | `b83_wetter_settings_saved` | Action | Nach dem Speichern der Einstellungen |
-| `b83_wetter_data_updated` | Action | Nach dem Speichern neuer Wetterdaten |
+| `b83_wetter_data_updated` | Action | Nach dem Speichern neuer Wetterdaten (Parameter: Daten, Kennung des Orts; `main` = Hauptort) |
 | `b83_wetter_purge_cache` | Action | Nach dem Leeren des Seiten-Caches |
 | `b83_wetter_sources` | Filter | Datenquellen (eigene Quellen mit `SourceInterface`) |
+| `b83_wetter_locations` | Filter | Orte, für die Daten abgerufen werden (Kennung => name, lat, lng, altitude) |
 | `b83_wetter_days_needed` | Filter | Tage, für die Daten vorhanden sein sollen |
 | `b83_wetter_geosphere_url`, `b83_wetter_metno_url` | Filter | Abfrage-URLs |
 | `b83_wetter_user_agent` | Filter | User-Agent der Abfragen |

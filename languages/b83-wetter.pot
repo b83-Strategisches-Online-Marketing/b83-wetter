@@ -1118,3 +1118,43 @@ msgstr ""
 #: src/Integrations/ElementorWidget.php:79
 msgid "Symbol (Icon, Temperatur, Wetterlage)"
 msgstr ""
+
+#: src/Frontend/Renderer.php
+msgid "b83 Wetter: Der angegebene Standort existiert nicht. Die Kennung steht unter b83 → Wetter → Standort und Daten."
+msgstr ""
+
+#: src/Admin/AdminPage.php
+msgid "Weitere Orte"
+msgstr ""
+
+#: src/Admin/AdminPage.php
+msgid "Kennung"
+msgstr ""
+
+#: src/Admin/AdminPage.php
+msgid "Breite"
+msgstr ""
+
+#: src/Admin/AdminPage.php
+msgid "Länge"
+msgstr ""
+
+#: src/Admin/AdminPage.php
+msgid "Seehöhe in m"
+msgstr ""
+
+#: src/Admin/AdminPage.php
+msgid "Bis zu %d weitere Orte, z. B. Tal und Berg. Der Ort oben bleibt der Hauptort. Ein weiterer Ort wird mit dem Shortcode-Attribut standort eingebunden, z. B. [b83_wetter standort=\"karkogel\"]. Quelle, Fallback und Aktualisierung gelten für alle Orte. Zeilen ohne Breite und Länge werden beim Speichern entfernt."
+msgstr ""
+
+#: src/Admin/AdminPage.php
+msgid "Die Kennung darf nur Kleinbuchstaben, Ziffern und Bindestriche enthalten. Bleibt sie leer, wird sie aus dem Ortsnamen gebildet."
+msgstr ""
+
+#: src/Admin/AdminPage.php
+msgid "Hauptort"
+msgstr ""
+
+#: src/Admin/AdminPage.php
+msgid "Weiterer Ort: %s"
+msgstr ""

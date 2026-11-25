@@ -29,6 +29,21 @@ final class Renderer {
 
 	public function __construct( private Repository $repository ) {}
 
+	/**
+	 * Zusätzliche Orte (Kennung => Name) für Auswahlfelder, z. B. im Elementor-Widget.
+	 *
+	 * @return array<string,string>
+	 */
+	public function extra_locations(): array {
+		$list = array();
+		foreach ( $this->repository->locations() as $slug => $loc ) {
+			if ( ! $this->repository->is_main( (string) $slug ) ) {
+				$list[ (string) $slug ] = '' !== $loc['name'] ? $loc['name'] . ' (' . $slug . ')' : (string) $slug;
+			}
+		}
+		return $list;
+	}
+
 	public function set_scheduler( Scheduler $scheduler ): void {
 		$this->scheduler = $scheduler;
 	}
@@ -38,7 +53,8 @@ final class Renderer {
 	 *
 	 * @param string              $view      klein | kompakt | ausfuehrlich.
 	 * @param array<string,mixed> $overrides Geprüfte Design-Überschreibungen ('' = Backend-Wert).
-	 * @param array<string,mixed> $opts      class, link ('' = Einstellung, 'none' = kein Link, URL), title,
+	 * @param array<string,mixed> $opts      class, link ('' = Einstellung, 'none' = kein Link, URL), title, location (Kennung eines
+	 *                                       zusätzlichen Orts, '' = Hauptort),
 	 *                                       preview (Backend/Editor), design (vollständiges Design statt Backend-Werten),
 	 *                                       forecast (Beispieldaten für die Vorschau).
 	 */
@@ -47,8 +63,10 @@ final class Renderer {
 		$base     = isset( $opts['design'] ) && is_array( $opts['design'] ) ? $opts['design'] : $this->repository->design();
 		$design   = Design::merge( $base, $overrides );
 		$settings = $this->repository->get_settings();
-		$location = $this->repository->location();
-		$forecast = isset( $opts['forecast'] ) && $opts['forecast'] instanceof Forecast ? $opts['forecast'] : $this->repository->forecast();
+		$slug     = Sanitizer::slug( $opts['location'] ?? '' );
+		$slug     = $this->repository->is_main( $slug ) ? '' : $slug;
+		$location = $this->repository->location( $slug );
+		$forecast = isset( $opts['forecast'] ) && $opts['forecast'] instanceof Forecast ? $opts['forecast'] : $this->repository->forecast( $slug );
 		$demo     = isset( $opts['forecast'] );
 		$preview  = ! empty( $opts['preview'] );
 
@@ -68,9 +86,13 @@ final class Renderer {
 			if ( ! current_user_can( 'edit_posts' ) && ! $preview ) {
 				return '';
 			}
-			$msg = null === $location
-				? __( 'b83 Wetter: Bitte zuerst unter b83 → Wetter einen Standort eintragen.', 'b83-wetter' )
-				: __( 'b83 Wetter: Noch keine aktuellen Wetterdaten – bitte unter b83 → Wetter → Status „Jetzt aktualisieren“ wählen.', 'b83-wetter' );
+			if ( '' !== $slug && null === $location ) {
+				$msg = __( 'b83 Wetter: Der angegebene Standort existiert nicht. Die Kennung steht unter b83 → Wetter → Standort und Daten.', 'b83-wetter' );
+			} elseif ( null === $location ) {
+				$msg = __( 'b83 Wetter: Bitte zuerst unter b83 → Wetter einen Standort eintragen.', 'b83-wetter' );
+			} else {
+				$msg = __( 'b83 Wetter: Noch keine aktuellen Wetterdaten – bitte unter b83 → Wetter → Status „Jetzt aktualisieren“ wählen.', 'b83-wetter' );
+			}
 			return '<div class="b83-wetter-notice" role="note">' . esc_html( $msg ) . '</div>';
 		}
 
@@ -114,6 +136,7 @@ final class Renderer {
 					'link'  => is_string( $opts['link'] ?? null ) ? (string) $opts['link'] : '',
 					'title' => isset( $opts['title'] ) ? (string) $opts['title'] : '',
 					'class' => isset( $opts['class'] ) ? (string) $opts['class'] : '',
+					'standort' => $slug,
 				)
 			),
 			static fn( $v ): bool => '' !== $v && null !== $v

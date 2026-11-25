@@ -19,6 +19,7 @@ if ( is_array( $b83_wetter_settings ) && ! empty( $b83_wetter_settings['delete_o
 	foreach ( array(
 		'b83_wetter_settings',
 		'b83_wetter_data',
+		'b83_wetter_data_extra',
 		'b83_wetter_status',
 		'b83_wetter_db_version',
 	) as $b83_wetter_option ) {

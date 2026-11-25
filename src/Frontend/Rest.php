@@ -78,9 +78,10 @@ final class Rest {
 			$view,
 			Shortcode::overrides( $args, $view ),
 			array(
-				'link'  => Sanitizer::text( $args['link'] ?? '', 300 ),
-				'title' => Sanitizer::text( $args['title'] ?? '', 80 ),
-				'class' => Sanitizer::text( $args['class'] ?? '', 100 ),
+				'location' => Sanitizer::slug( $args['standort'] ?? '' ),
+				'link'     => Sanitizer::text( $args['link'] ?? '', 300 ),
+				'title'    => Sanitizer::text( $args['title'] ?? '', 80 ),
+				'class'    => Sanitizer::text( $args['class'] ?? '', 100 ),
 			)
 		);
 

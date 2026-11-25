@@ -1120,3 +1120,43 @@ msgstr "Large icon with temperature, condition below"
 #: src/Integrations/ElementorWidget.php:79
 msgid "Symbol (Icon, Temperatur, Wetterlage)"
 msgstr "Symbol (icon, temperature, condition)"
+
+#: src/Frontend/Renderer.php
+msgid "b83 Wetter: Der angegebene Standort existiert nicht. Die Kennung steht unter b83 → Wetter → Standort und Daten."
+msgstr "b83 Weather: The specified location does not exist. The ID is shown under b83 → Weather → Location and data."
+
+#: src/Admin/AdminPage.php
+msgid "Weitere Orte"
+msgstr "More locations"
+
+#: src/Admin/AdminPage.php
+msgid "Kennung"
+msgstr "ID"
+
+#: src/Admin/AdminPage.php
+msgid "Breite"
+msgstr "Latitude"
+
+#: src/Admin/AdminPage.php
+msgid "Länge"
+msgstr "Longitude"
+
+#: src/Admin/AdminPage.php
+msgid "Seehöhe in m"
+msgstr "Altitude in m"
+
+#: src/Admin/AdminPage.php
+msgid "Bis zu %d weitere Orte, z. B. Tal und Berg. Der Ort oben bleibt der Hauptort. Ein weiterer Ort wird mit dem Shortcode-Attribut standort eingebunden, z. B. [b83_wetter standort=\"karkogel\"]. Quelle, Fallback und Aktualisierung gelten für alle Orte. Zeilen ohne Breite und Länge werden beim Speichern entfernt."
+msgstr "Up to %d more locations, e.g. valley and mountain. The location above remains the main location. Another location is embedded with the shortcode attribute standort, e.g. [b83_wetter standort=\"karkogel\"]. Source, fallback and update interval apply to all locations. Rows without latitude and longitude are removed on save."
+
+#: src/Admin/AdminPage.php
+msgid "Die Kennung darf nur Kleinbuchstaben, Ziffern und Bindestriche enthalten. Bleibt sie leer, wird sie aus dem Ortsnamen gebildet."
+msgstr "The ID may only contain lowercase letters, digits and hyphens. If left empty, it is derived from the location name."
+
+#: src/Admin/AdminPage.php
+msgid "Hauptort"
+msgstr "Main location"
+
+#: src/Admin/AdminPage.php
+msgid "Weiterer Ort: %s"
+msgstr "Additional location: %s"

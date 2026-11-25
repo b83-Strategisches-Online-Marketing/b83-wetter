@@ -82,6 +82,19 @@ final class ElementorWidget extends Widget_Base {
 			)
 		);
 
+		$locations = null !== self::$renderer ? self::$renderer->extra_locations() : array();
+		if ( ! empty( $locations ) ) {
+			$this->add_control(
+				'standort',
+				array(
+					'label'   => __( 'Standort', 'b83-wetter' ),
+					'type'    => Controls_Manager::SELECT,
+					'default' => '',
+					'options' => array( '' => __( 'Hauptort', 'b83-wetter' ) ) + $locations,
+				)
+			);
+		}
+
 		$this->add_control(
 			'inhalt',
 			array(
@@ -208,9 +221,10 @@ final class ElementorWidget extends Widget_Base {
 			$view,
 			Shortcode::overrides( $atts, $view ),
 			array(
-				'title'   => Sanitizer::text( $settings['titel'] ?? '', 80 ),
-				'link'    => Sanitizer::text( $settings['link'] ?? '', 300 ),
-				'preview' => $editor,
+				'location' => Sanitizer::slug( $settings['standort'] ?? '' ),
+				'title'    => Sanitizer::text( $settings['titel'] ?? '', 80 ),
+				'link'     => Sanitizer::text( $settings['link'] ?? '', 300 ),
+				'preview'  => $editor,
 			)
 		);
 	}

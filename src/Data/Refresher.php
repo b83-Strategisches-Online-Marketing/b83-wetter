@@ -24,27 +24,61 @@ final class Refresher {
 	public function __construct( private Repository $repository ) {}
 
 	/**
-	 * Daten aktualisieren.
+	 * Daten aller Orte aktualisieren (Hauptort zuerst).
 	 *
-	 * @return bool true, wenn neue Daten gespeichert wurden.
+	 * Jeder Ort wird für sich abgerufen und gespeichert, ein Fehler bei einem Ort
+	 * blockiert die anderen nicht.
+	 *
+	 * @return bool true, wenn für mindestens einen Ort neue Daten gespeichert wurden.
 	 */
 	public function refresh(): bool {
-		$location = $this->repository->location();
-		$status   = $this->repository->get_status();
+		$locations = $this->repository->locations();
+
+		if ( empty( $locations ) ) {
+			$status                 = $this->repository->get_status();
+			$status['last_attempt'] = time();
+			$status['errors']       = array( 'location' => __( 'Kein Standort eingetragen.', 'b83-wetter' ) );
+			$this->repository->save_status( $status );
+			return false;
+		}
+
+		$any   = false;
+		$first = true;
+		foreach ( array_keys( $locations ) as $slug ) {
+			if ( ! $first ) {
+				// Kurze Pause, damit die Anfragen an die Wetterdienste nicht gleichzeitig eintreffen.
+				sleep( 1 );
+			}
+			$first = false;
+			$any   = $this->refresh_location( (string) $slug ) || $any;
+		}
+		return $any;
+	}
+
+	/**
+	 * Daten eines Orts aktualisieren.
+	 *
+	 * @param string $slug Kennung; „main“ = Hauptort.
+	 * @return bool true, wenn neue Daten gespeichert wurden.
+	 */
+	public function refresh_location( string $slug ): bool {
+		$location = $this->repository->location( $slug );
+		$status   = $this->repository->get_status( $slug );
 
 		$status['last_attempt'] = time();
 		$status['errors']       = array();
 
 		if ( null === $location ) {
 			$status['errors']['location'] = __( 'Kein Standort eingetragen.', 'b83-wetter' );
-			$this->repository->save_status( $status );
+			$this->repository->save_status( $status, $slug );
 			return false;
 		}
 
-		if ( get_transient( self::LOCK ) ) {
+		$lock = self::LOCK . ( $this->repository->is_main( $slug ) ? '' : '_' . $slug );
+		if ( get_transient( $lock ) ) {
 			return false;
 		}
-		set_transient( self::LOCK, 1, MINUTE_IN_SECONDS );
+		set_transient( $lock, 1, MINUTE_IN_SECONDS );
 
 		$settings  = $this->repository->get_settings();
 		$sources   = $this->repository->sources();
@@ -105,10 +139,10 @@ final class Refresher {
 			}
 		}
 
-		delete_transient( self::LOCK );
+		delete_transient( $lock );
 
 		if ( empty( $steps ) ) {
-			$this->repository->save_status( $status );
+			$this->repository->save_status( $status, $slug );
 			return false;
 		}
 
@@ -117,21 +151,22 @@ final class Refresher {
 			'sources'  => $used,
 			'mode'     => $mode,
 			'fetched'  => time(),
-			'location' => $this->repository->location_key(),
+			'location' => $this->repository->location_key( $slug ),
 		);
-		$this->repository->save_data( $data );
+		$this->repository->save_data( $data, $slug );
 
 		$status['last_success'] = $data['fetched'];
 		$status['mode']         = $mode;
 		$status['sources']      = $used;
-		$this->repository->save_status( $status );
+		$this->repository->save_status( $status, $slug );
 
 		/**
 		 * Nach dem Speichern neuer Wetterdaten.
 		 *
 		 * @param array<string,mixed> $data Wetterdaten.
+		 * @param string              $slug Kennung des Orts („main“ = Hauptort).
 		 */
-		do_action( 'b83_wetter_data_updated', $data );
+		do_action( 'b83_wetter_data_updated', $data, $slug );
 		return true;
 	}
 
@@ -148,13 +183,27 @@ final class Refresher {
 		return max( 1, min( 9, (int) apply_filters( 'b83_wetter_days_needed', $days ) ) );
 	}
 
-	/** Liegen die Daten länger als das Doppelte des Intervalls zurück? */
-	public function is_stale(): bool {
-		$data     = $this->repository->get_data();
+	/**
+	 * Liegen die Daten eines Orts länger als das Eineinhalbfache des Intervalls zurück?
+	 *
+	 * @param string|null $slug Kennung; leer = Hauptort.
+	 */
+	public function is_stale( ?string $slug = null ): bool {
+		$data     = $this->repository->get_data( $slug );
 		$interval = (int) $this->repository->get_settings()['interval'] * MINUTE_IN_SECONDS;
-		if ( ( $data['location'] ?? '' ) !== $this->repository->location_key() ) {
+		if ( ( $data['location'] ?? '' ) !== $this->repository->location_key( $slug ) ) {
 			return true;
 		}
 		return (int) ( $data['fetched'] ?? 0 ) < time() - (int) ( $interval * 1.5 );
+	}
+
+	/** Ist mindestens ein Ort veraltet? */
+	public function is_stale_any(): bool {
+		foreach ( array_keys( $this->repository->locations() ) as $slug ) {
+			if ( $this->is_stale( (string) $slug ) ) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
